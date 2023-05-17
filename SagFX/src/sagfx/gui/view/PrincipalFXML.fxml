@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="pnl_principal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sagfx.controller.PrincipalFXMLController">
+   <top>
+      <MenuBar prefHeight="38.0" prefWidth="900.0" BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="Movimientos">
+            <items>
+              <MenuItem fx:id="mi_ingresos" mnemonicParsing="false" onAction="#abrirIngresoEgreso" text="Ingresos/Egresos" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Administración">
+            <items>
+              <MenuItem fx:id="mi_usuario" mnemonicParsing="false" onAction="#abrirUsuario" text="Usuarios" />
+                  <MenuItem fx:id="mi_categoria" mnemonicParsing="false" onAction="#abrirCategoria" text="Categorias/Catalogo" />
+                  <MenuItem fx:id="mi_ranchos" mnemonicParsing="false" onAction="#abrirRanchos" text="Ranchos" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+</BorderPane>

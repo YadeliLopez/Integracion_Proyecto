@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Catalogo">
+    
+    <select id="getCatalogo" resultType="modelo.pojos.Catalogo" statementType="CALLABLE">
+        
+    </select>
+    
+    <select id="getAllCatalogo" resultType="modelo.pojos.Catalogo" statementType="CALLABLE">
+        {CALL sag.sp_getAllCatalogos()}
+    </select>
+    
+    <select id="getCatalogosByIdCategoria" resultType="modelo.pojos.Catalogo" statementType="CALLABLE" parameterType="int">
+        {CALL sag.sp_getAllCatalogosByIdCategoria(
+        #{idCategoria, jdbcType=INTEGER,mode=IN})}
+    </select>
+    
+    <insert id="registrarCatalogo" parameterType="map" statementType="CALLABLE">
+        {CALL sag.sp_registrarCatalogo(
+            #{idCatalogo, jdbcType=INTEGER,mode=IN},
+            #{idCategoria, jdbcType=INTEGER,mode=IN},
+            #{nombre, jdbcType=VARCHAR,mode=IN},
+            #{activo, jdbcType=CHAR,mode=IN})}
+    </insert>
+    
+    <update id="actualizarCatalogo" parameterType="map" statementType="CALLABLE">
+        {CALL sag.sp_actualizarCatalogo(
+            #{idCatalogo, jdbcType=INTEGER,mode=IN},
+            #{idCategoria, jdbcType=INTEGER,mode=IN},
+            #{nombre, jdbcType=VARCHAR,mode=IN},
+            #{activo, jdbcType=CHAR,mode=IN})}
+    </update>
+    
+    <update id="actualizarEstatusCatalogo" parameterType="map" statementType="CALLABLE">
+        {CALL sag.sp_actualizarEstatusCatalogo(
+            #{idCatalogo, jdbcType=INTEGER,mode=IN},
+            #{activo, jdbcType=CHAR,mode=IN})}
+    </update>
+
+</mapper>

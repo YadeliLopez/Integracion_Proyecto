@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" fx:id="pnl_principal" prefHeight="361.0" prefWidth="600.0" style="-fx-background-color: #D0F5A9;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="sagfx.controller.LoginFXMLController">
+   <children>
+      <ImageView fx:id="img_banner" fitHeight="113.0" fitWidth="536.0" layoutX="32.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/logoTitulo.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="img_logo" fitHeight="238.0" fitWidth="257.0" layoutX="14.0" layoutY="90.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/logoSag.png" />
+         </image>
+      </ImageView>
+      <Pane fx:id="pnl_panelLogin" layoutX="276.0" layoutY="90.0" prefHeight="216.0" prefWidth="310.0">
+         <children>
+            <Label fx:id="lbl_usuario" layoutX="18.0" layoutY="39.0" text="Usuario *">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbl_contrasena" layoutX="18.0" layoutY="105.0" text="Contraseña *">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txt_usuario" layoutX="119.0" layoutY="32.0" prefHeight="31.0" prefWidth="175.0" promptText="Usuario" />
+            <PasswordField fx:id="txt_contrasena" layoutX="119.0" layoutY="98.0" prefHeight="31.0" prefWidth="175.0" promptText="Contraseña" />
+            <Button fx:id="btn_iniciar" layoutX="18.0" layoutY="170.0" mnemonicParsing="false" onAction="#iniciarSesion" prefHeight="31.0" prefWidth="120.0" text="Iniciar">
+               <graphic>
+                  <ImageView fitHeight="18.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/login.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="btn_cancelar" layoutX="174.0" layoutY="170.0" mnemonicParsing="false" onAction="#cancelar" prefHeight="31.0" prefWidth="120.0" text="Cancelar">
+               <graphic>
+                  <ImageView fitHeight="17.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/close.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </Pane>
+      <Label fx:id="lbl_mensaje" layoutX="294.0" layoutY="316.0" prefHeight="25.0" prefWidth="274.0" />
+   </children>
+</AnchorPane>
