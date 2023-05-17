@@ -40,10 +40,9 @@ public class FormCategoriaFXMLController implements Initializable {
     private Button btn_formGuardarCategoria;
     @FXML
     private Button btn_formCerrarCategoria;
-    
+
     Categoria categoria = null;
     Boolean isNew = false;
-    
 
     /**
      * Initializes the controller class.
@@ -51,42 +50,44 @@ public class FormCategoriaFXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
-    public void setData(Categoria categoria, Boolean isNew){
+    }
+
+    public void setData(Categoria categoria, Boolean isNew) {
         this.categoria = categoria;
         this.isNew = isNew;
         this.cargarCategoria();
     }
-    
-    public void cargarCategoria(){
-        this.txt_formIdCategoria.setText(categoria.getIdCategoria().toString());
-        this.txt_formNombreCategoria.setText(categoria.getNombre());
-        if ("S".equals(categoria.getActivo())) {
-            this.chb_estatus.setText("Activo");
-            this.chb_estatus.setSelected(true);
-        } else {
-            this.chb_estatus.setText("Inaactivo");
-            this.chb_estatus.setSelected(false);
+
+    public void cargarCategoria() {
+        if (!this.isNew) {
+            this.txt_formIdCategoria.setText(categoria.getIdCategoria().toString());
+            this.txt_formNombreCategoria.setText(categoria.getNombre());
+            if ("S".equals(categoria.getActivo())) {
+                this.chb_estatus.setText("Activo");
+                this.chb_estatus.setSelected(true);
+            } else {
+                this.chb_estatus.setText("Inaactivo");
+                this.chb_estatus.setSelected(false);
+            }
         }
     }
-    
+
     @FXML
     private void guardar(ActionEvent event) {
         if (validarDatos()) {
             try {
                 String data = "";
                 HashMap<String, Object> params = new LinkedHashMap<>();
-                params.put("idCategoria", this.txt_formIdCategoria.getText());
+                params.put("idCatalogo", this.txt_formIdCategoria.getText());
                 params.put("nombre", this.txt_formNombreCategoria.getText());
                 if (this.chb_estatus.isSelected()) {
                     params.put("activo", "S");
                 } else {
                     params.put("activo", "N");
                 }
-                if(this.isNew){
+                if (this.isNew) {
                     data = Requests.post("/categoria/registrarCategoria/", params);
-                }else{
+                } else {
                     data = Requests.post("/categoria/actualizarCategoria/", params);
                 }
                 JSONObject dataJson = new JSONObject(data);
@@ -94,7 +95,7 @@ public class FormCategoriaFXMLController implements Initializable {
                 if ((Boolean) dataJson.get("error") == false) {
                     Window.close(event);
                     Window.showMessageInformation(dataJson.get("mensaje").toString());
-                    
+
                 } else {
                     Window.close(event);
                     Window.showMessageError(dataJson.get("mensaje").toString());
@@ -122,5 +123,5 @@ public class FormCategoriaFXMLController implements Initializable {
     private void cancelar(ActionEvent event) {
         Window.close(event);
     }
-    
+
 }
