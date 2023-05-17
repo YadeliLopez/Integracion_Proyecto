@@ -98,6 +98,7 @@ public class CategoriasFXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        this.cargarCategoria();
     }    
 
     @FXML
@@ -163,7 +164,7 @@ public class CategoriasFXMLController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/sagfx/gui/view/FormCategoriaFXML.fxml"));
             Parent formCategoria = loader.load();
             FormCategoriaFXMLController ctrl = loader.getController();
-            ctrl.setData(new Categoria(), true);
+            ctrl.setData(this.categoria,true);
             Scene scene = new Scene(formCategoria);
             Stage stageCategorias = new Stage();
             stageCategorias.setTitle("Categorías");

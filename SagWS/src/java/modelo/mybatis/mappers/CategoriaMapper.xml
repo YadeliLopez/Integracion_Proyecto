@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </insert>
     
     <update id="actualizarCategoria" parameterType="map" statementType="CALLABLE">
-        {CALL sag.sp_actualizarCatalogo(
+        {CALL sag.sp_actualizarCategoria(
             #{idCatalogo, jdbcType=INTEGER,mode=IN},
             #{nombre, jdbcType=VARCHAR,mode=IN},
             #{activo, jdbcType=CHAR,mode=IN})}
