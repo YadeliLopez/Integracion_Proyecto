@@ -59,14 +59,14 @@ public class CategoriaWS {
     @Path("registrarCategoria")
     @Produces(MediaType.APPLICATION_JSON)
     public Respuesta registrarCategoria(
-            @FormParam("idCatalogo") int idCatalogo,
+            @FormParam("idCategoria") Integer idCategoria,
             @FormParam("nombre") String nombre,
             @FormParam("activo") String activo){
         Respuesta res = new Respuesta();
         SqlSession conn = MyBatisUtil.getSession();
         try{
             HashMap<String, Object> param = new HashMap<String, Object>();
-            param.put("idCatalogo", idCatalogo);
+            param.put("idCategoria", idCategoria);
             param.put("nombre", nombre);
             param.put("activo", activo);
             
@@ -88,14 +88,14 @@ public class CategoriaWS {
     @Path("actualizarCategoria")
     @Produces(MediaType.APPLICATION_JSON)
     public Respuesta actualizarCategoria(
-            @FormParam("idCatalogo") int idCatalogo,
+            @FormParam("idCategoria") int idCategoria,
             @FormParam("nombre") String nombre,
             @FormParam("activo") String activo){
         Respuesta res = new Respuesta();
         SqlSession conn = MyBatisUtil.getSession();
         try{
             HashMap<String, Object> param = new HashMap<String, Object>();
-            param.put("idCatalogo", idCatalogo);
+            param.put("idCategoria", idCategoria);
             param.put("nombre", nombre);
             param.put("activo", activo);
             
@@ -117,13 +117,13 @@ public class CategoriaWS {
     @Path("actualizarEstatusCategoria")
     @Produces(MediaType.APPLICATION_JSON)
     public Respuesta actualizarEstatusCategoria(
-            @FormParam("idCatalogo") Integer idCatalogo,
+            @FormParam("idCategoria") Integer idCategoria,
             @FormParam("activo") String activo){
         Respuesta res = new Respuesta();
         SqlSession conn = MyBatisUtil.getSession();
         try{
             HashMap<String, Object> param = new HashMap<String, Object>();
-            param.put("idCatalogo", idCatalogo);
+            param.put("idCategoria", idCategoria);
             param.put("activo", activo);
             
             conn.update("Categoria.actualizarEstatusCategoria", param);

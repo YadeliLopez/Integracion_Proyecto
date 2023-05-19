@@ -13,21 +13,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <insert id="registrarCategoria" parameterType="map" statementType="CALLABLE">
         {CALL sag.sp_registrarCategoria(
-            #{idCatalogo, jdbcType=INTEGER,mode=IN},
+            #{idCategoria, jdbcType=INTEGER,mode=IN},
             #{nombre, jdbcType=VARCHAR,mode=IN},
             #{activo, jdbcType=CHAR,mode=IN})}
     </insert>
     
     <update id="actualizarCategoria" parameterType="map" statementType="CALLABLE">
         {CALL sag.sp_actualizarCategoria(
-            #{idCatalogo, jdbcType=INTEGER,mode=IN},
+            #{idCategoria, jdbcType=INTEGER,mode=IN},
             #{nombre, jdbcType=VARCHAR,mode=IN},
             #{activo, jdbcType=CHAR,mode=IN})}
     </update>
     
     <update id="actualizarEstatusCategoria" parameterType="map" statementType="CALLABLE">
         {CALL sag.sp_actualizarEstatusCategoria(
-            #{idCatalogo, jdbcType=INTEGER,mode=IN},
+            #{idCategoria, jdbcType=INTEGER,mode=IN},
             #{activo, jdbcType=CHAR,mode=IN})}
     </update>
 

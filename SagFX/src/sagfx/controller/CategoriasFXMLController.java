@@ -107,6 +107,7 @@ public class CategoriasFXMLController implements Initializable {
     }
     
     public void cargarCategoria(){
+        this.categoria=null;
         String respuesta = "";
         tbl_categorias.getItems().clear();
         

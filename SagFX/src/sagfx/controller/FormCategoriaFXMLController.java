@@ -78,7 +78,7 @@ public class FormCategoriaFXMLController implements Initializable {
             try {
                 String data = "";
                 HashMap<String, Object> params = new LinkedHashMap<>();
-                params.put("idCatalogo", this.txt_formIdCategoria.getText());
+                params.put("idCategoria", this.txt_formIdCategoria.getText());
                 params.put("nombre", this.txt_formNombreCategoria.getText());
                 if (this.chb_estatus.isSelected()) {
                     params.put("activo", "S");

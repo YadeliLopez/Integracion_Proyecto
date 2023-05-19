@@ -13,16 +13,14 @@ public class Categoria {
     public int idCategoria;
     public String nombre;
     public String activo;
-    public Integer orden;
 
     public Categoria() {
     }
 
-    public Categoria(int idCategoria, String nombre, String activo, Integer orden) {
+    public Categoria(int idCategoria, String nombre, String activo) {
         this.idCategoria = idCategoria;
         this.nombre = nombre;
         this.activo = activo;
-        this.orden = orden;
     }
 
     public int getIdCategoria() {
@@ -47,13 +45,5 @@ public class Categoria {
 
     public void setActivo(String activo) {
         this.activo = activo;
-    }
-
-    public Integer getOrden() {
-        return orden;
-    }
-
-    public void setOrden(Integer orden) {
-        this.orden = orden;
     }
 }
