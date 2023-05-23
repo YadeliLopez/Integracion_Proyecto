@@ -45,7 +45,8 @@ import sagfx.utils.Window;
  */
 public class CategoriasFXMLController implements Initializable {
 
-    Categoria categoria = null;
+    private Categoria categoria = null;
+    private Catalogo catalogo = null;
     
     @FXML
     private Pane pnl_principal;
@@ -103,7 +104,40 @@ public class CategoriasFXMLController implements Initializable {
 
     @FXML
     private void buscarCategoria(ActionEvent event) {
-        this.cargarCategoria();
+        String respuesta = "";
+        this.tbl_catalogo.getItems().clear();
+        this.tbl_categorias.getItems().clear();
+        this.categoria = null;
+        this.catalogo = null;
+
+        HashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("busqueda", this.txt_busqueda.getText());
+
+        respuesta = Requests.post("/categoria/buscarCategorias", params);
+        Gson gson = new Gson();
+
+        //Definimos u  TypeToken que representa una lista de objetos Categoria
+        TypeToken<List<Categoria>> token = new TypeToken<List<Categoria>>() {
+        };
+
+        //Utilizamos el método fromJson() de la clase Gson para convertir el JSON en una lista de objetos
+        List<Categoria> listCatalogo = gson.fromJson(respuesta, token.getType());
+
+        if (listCatalogo.size() > 0) {
+            tcl_catalogoIdCatalogo.setCellValueFactory(new PropertyValueFactory<>("idCatalogo"));
+            tcl_catalogoNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+            tcl_catalogoActivo.setCellValueFactory(new PropertyValueFactory<>("activo"));
+
+            listCatalogo.forEach(e -> {
+                tbl_categorias.getItems().add(e);
+            });
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Advertencia");
+            alert.setHeaderText(null);
+            alert.setContentText("Los datos no coinciden con ningún registro...");
+            alert.showAndWait();
+        }
     }
     
     public void cargarCategoria(){
@@ -283,6 +317,7 @@ public class CategoriasFXMLController implements Initializable {
     @FXML
     private void limpiar(ActionEvent event) {
         this.txt_busqueda.setText("");
+        this.cargarCategoria();    
     }
     
 }

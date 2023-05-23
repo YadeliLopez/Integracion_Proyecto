@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
@@ -97,8 +98,11 @@ public class FormCategoriaFXMLController implements Initializable {
                     Window.showMessageInformation(dataJson.get("mensaje").toString());
 
                 } else {
-                    Window.close(event);
-                    Window.showMessageError(dataJson.get("mensaje").toString());
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Diálogo de error...");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Los campos son requeridos");
+                    alert.showAndWait();
                 }
             } catch (JSONException ex) {
                 Logger.getLogger(FormCategoriaFXMLController.class.getName()).log(Level.SEVERE, null, ex);
@@ -116,6 +120,9 @@ public class FormCategoriaFXMLController implements Initializable {
 
     private Boolean validarDatos() {
         Boolean valido = true;
+        if(!this.txt_formIdCategoria.getText().isEmpty() && !this.txt_formNombreCategoria.getText().isEmpty()){
+            valido=true;
+        }
         return valido;
     }
 

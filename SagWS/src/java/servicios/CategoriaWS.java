@@ -140,5 +140,23 @@ public class CategoriaWS {
         }
         return res;
     }
+    
+     @POST
+    @Path("buscarCategorias")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Categoria> buscarCategorias(
+            @FormParam("busqueda") String busqueda){
+        List<Categoria> list = new ArrayList<Categoria>();
+        SqlSession conn = null;
+        try{
+            conn = MyBatisUtil.getSession();
+            list = conn.selectList("Categoria.buscarCategorias", busqueda);
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            conn.close();
+        }
+        return list;
+    }
 
 }

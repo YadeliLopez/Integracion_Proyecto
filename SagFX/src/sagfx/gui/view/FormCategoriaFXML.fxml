@@ -10,13 +10,13 @@
 
 <AnchorPane id="AnchorPane" prefHeight="306.0" prefWidth="304.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sagfx.controller.FormCategoriaFXMLController">
    <children>
-      <Label layoutX="20.0" layoutY="41.0" text="IdCategoría">
+      <Label layoutX="20.0" layoutY="41.0" text="IdCategoría: *">
          <font>
             <Font name="Arial Rounded MT Bold" size="13.0" />
          </font>
       </Label>
       <TextField fx:id="txt_formIdCategoria" layoutX="113.0" layoutY="37.0" prefHeight="25.0" prefWidth="166.0" />
-      <Label layoutX="20.0" layoutY="108.0" text="Nombre">
+      <Label layoutX="21.0" layoutY="108.0" text="Nombre: *">
          <font>
             <Font name="Arial Rounded MT Bold" size="13.0" />
          </font>
@@ -43,6 +43,11 @@
             </ImageView>
          </graphic>
       </Button>
-      <CheckBox fx:id="chb_estatus" layoutX="125.0" layoutY="170.0" mnemonicParsing="false" text="Activo" />
+      <CheckBox fx:id="chb_estatus" layoutX="167.0" layoutY="170.0" mnemonicParsing="false" text="Activo" />
+      <Label layoutX="23.0" layoutY="171.0" text="Activo: *">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="13.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
