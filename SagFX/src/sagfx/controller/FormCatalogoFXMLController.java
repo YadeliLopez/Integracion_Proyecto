@@ -21,6 +21,7 @@ import javafx.scene.control.TextField;
 import org.json.JSONException;
 import org.json.JSONObject;
 import sagfx.api.requests.Requests;
+import sagfx.model.beans.Catalogo;
 import sagfx.model.beans.Categoria;
 import sagfx.utils.Window;
 
@@ -29,41 +30,42 @@ import sagfx.utils.Window;
  *
  * @author Yadelí López
  */
-public class FormCategoriaFXMLController implements Initializable {
+public class FormCatalogoFXMLController implements Initializable {
 
+    Catalogo catalogo = null;
+    Boolean isNew = false;
     @FXML
-    private TextField txt_formIdCategoria;
+    private TextField txt_formIdCatalogo;
     @FXML
-    private TextField txt_formNombreCategoria;
-    @FXML
-    private CheckBox chb_estatus;
+    private TextField txt_formIdCategoriaCata;
     @FXML
     private Button btn_formGuardarCategoria;
     @FXML
     private Button btn_formCerrarCategoria;
-
-    Categoria categoria = null;
-    Boolean isNew = false;
-
+    @FXML
+    private CheckBox chb_estatus;
+    @FXML
+    private TextField txt_formNombreCatalogo;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }
-
-    public void setData(Categoria categoria, Boolean isNew) {
-        this.categoria = categoria;
+    }    
+    
+    public void setData(Catalogo catalogo, Boolean isNew) {
+        this.catalogo = catalogo;
         this.isNew = isNew;
-        this.cargarCategoria();
+        this.cargarCatalogo();
     }
-
-    public void cargarCategoria() {
+    
+    public void cargarCatalogo() {
         if (!this.isNew) {
-            this.txt_formIdCategoria.setText(categoria.getIdCategoria().toString());
-            this.txt_formNombreCategoria.setText(categoria.getNombre());
-            if ("S".equals(categoria.getActivo())) {
+            this.txt_formIdCatalogo.setText(catalogo.getIdCatalogo().toString());
+            this.txt_formIdCategoriaCata.setText(catalogo.getIdCategoria().toString());
+            this.txt_formNombreCatalogo.setText(catalogo.getNombre());
+            if ("S".equals(catalogo.getActivo())) {
                 this.chb_estatus.setText("Activo");
                 this.chb_estatus.setSelected(true);
             } else {
@@ -79,17 +81,18 @@ public class FormCategoriaFXMLController implements Initializable {
             try {
                 String data = "";
                 HashMap<String, Object> params = new LinkedHashMap<>();
-                params.put("idCategoria", this.txt_formIdCategoria.getText());
-                params.put("nombre", this.txt_formNombreCategoria.getText());
+                params.put("idCatalogo", this.txt_formIdCatalogo.getText());
+                params.put("idCategoria", this.txt_formIdCategoriaCata.getText());
+                params.put("nombre", this.txt_formNombreCatalogo.getText());
                 if (this.chb_estatus.isSelected()) {
                     params.put("activo", "S");
                 } else {
                     params.put("activo", "N");
                 }
                 if (this.isNew) {
-                    data = Requests.post("/categoria/registrarCategoria/", params);
+                    data = Requests.post("/catalogo/registrarCatalogo/", params);
                 } else {
-                    data = Requests.post("/categoria/actualizarCategoria/", params);
+                    data = Requests.post("/catalogo/actualizarCatalogo/", params);
                 }
                 JSONObject dataJson = new JSONObject(data);
 
@@ -120,7 +123,7 @@ public class FormCategoriaFXMLController implements Initializable {
             alert.showAndWait();
         }
     }
-
+    
     private void checkEstatus(ActionEvent event) {
         if (this.chb_estatus.isSelected()) {
             this.chb_estatus.setText("Activo");
@@ -128,10 +131,10 @@ public class FormCategoriaFXMLController implements Initializable {
             this.chb_estatus.setText("Inactivo");
         }
     }
-
+    
     private Boolean validarDatos() {
         Boolean valido = true;
-        if(this.txt_formIdCategoria.getText().isEmpty() || this.txt_formNombreCategoria.getText().isEmpty()){
+        if(this.txt_formIdCatalogo.getText().isEmpty() || this.txt_formIdCategoriaCata.getText().isEmpty() || this.txt_formNombreCatalogo.getText().isEmpty()){
             valido=false;
         }
         return valido;
@@ -139,7 +142,7 @@ public class FormCategoriaFXMLController implements Initializable {
 
     @FXML
     private void cancelar(ActionEvent event) {
-        Window.close(event);
+         Window.close(event);
     }
-
+    
 }

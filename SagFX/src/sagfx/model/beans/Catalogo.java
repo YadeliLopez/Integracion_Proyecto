@@ -10,26 +10,26 @@ package sagfx.model.beans;
  * @author Yadelí López
  */
 public class Catalogo {
-    public int idCatalogo;
-    public int idCategoria;
+    public Integer idCatalogo;
+    public Integer idCategoria;
     public String nombre;
     public String activo;
 
     public Catalogo() {
     }
 
-    public Catalogo(int idCatalogo, int idCategoria, String nombre, String activo) {
+    public Catalogo(Integer idCatalogo, Integer idCategoria, String nombre, String activo) {
         this.idCatalogo = idCatalogo;
         this.idCategoria = idCategoria;
         this.nombre = nombre;
         this.activo = activo;
     }
 
-    public int getIdCatalogo() {
+    public Integer getIdCatalogo() {
         return idCatalogo;
     }
 
-    public int getIdCategoria() {
+    public Integer getIdCategoria() {
         return idCategoria;
     }
 
@@ -41,11 +41,11 @@ public class Catalogo {
         return activo;
     }
 
-    public void setIdCatalogo(int idCatalogo) {
+    public void setIdCatalogo(Integer idCatalogo) {
         this.idCatalogo = idCatalogo;
     }
 
-    public void setIdCategoria(int idCategoria) {
+    public void setIdCategoria(Integer idCategoria) {
         this.idCategoria = idCategoria;
     }
 

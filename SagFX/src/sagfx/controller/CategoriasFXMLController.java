@@ -102,6 +102,8 @@ public class CategoriasFXMLController implements Initializable {
         this.cargarCategoria();
     }    
 
+    //Categorías
+    
     @FXML
     private void buscarCategoria(ActionEvent event) {
         String respuesta = "";
@@ -206,6 +208,7 @@ public class CategoriasFXMLController implements Initializable {
             stageCategorias.setResizable(false);
             stageCategorias.setScene(scene);
             stageCategorias.showAndWait();
+            this.cargarCategoria();
 
         } catch (IOException ex) {
             Logger.getLogger(CategoriasFXMLController.class.getName()).log(Level.SEVERE, null, ex);
@@ -318,6 +321,164 @@ public class CategoriasFXMLController implements Initializable {
     private void limpiar(ActionEvent event) {
         this.txt_busqueda.setText("");
         this.cargarCategoria();    
+    }
+    
+    
+    //Catálogos
+
+    public void cargarCatalogo(){
+        this.catalogo=null;
+        String respuesta = "";
+        tbl_catalogo.getItems().clear();
+        
+        respuesta = Requests.get("/catalogo/getAllCatalogo/");
+        Gson gson = new Gson();
+        
+        //Definimos un TypeToken qie re´resenta una lista de objetos Categoría
+        TypeToken<List<Catalogo>> token = new TypeToken<List<Catalogo>>(){
+        };
+        //Utilizamos el método fromJson{} de la clase Gson para convertir el JSON en una lista de objetos
+        List<Catalogo> listCatalogos = gson.fromJson(respuesta, token.getType());
+        
+        tcl_catalogoIdCatalogo.setCellValueFactory(new PropertyValueFactory<>("idCatalogo"));
+        tcl_catalogoNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        tcl_catalogoActivo.setCellValueFactory(new PropertyValueFactory<>("activo"));
+        
+        listCatalogos.forEach(e ->{
+            tbl_catalogo.getItems().add(e);
+        });
+        /*for(Categoria c: listCategorias){
+            tbl_categorias.getItems().add(c);
+        }*/
+        System.out.println(listCatalogos.size());
+    }
+    
+    @FXML
+    private void clickTableCatalogo(MouseEvent event) {
+        String respuesta = "";
+        if (tbl_catalogo.getSelectionModel().getSelectedItem() != null) {
+            catalogo = tbl_catalogo.getSelectionModel().getSelectedItem();
+
+           
+            respuesta = Requests.get("/catalogo/getCatalogosByIdCategoria/" + catalogo.getIdCatalogo());
+            Gson gson = new Gson();
+
+            //Definimos un TypeToken que representa una lista de objetos Catalogo
+            TypeToken<List<Catalogo>> token = new TypeToken<List<Catalogo>>() {
+            };
+            //Utilizamos el método fromJson() de la clase Gson para convertir el JSON en una lista de objetos Catalogo
+            List<Catalogo> listCatalogos = gson.fromJson(respuesta, token.getType());
+
+            tcl_catalogoIdCatalogo.setCellValueFactory(new PropertyValueFactory<>("idCatalogo"));
+            tcl_catalogoNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+            tcl_catalogoActivo.setCellValueFactory(new PropertyValueFactory<>("activo"));
+
+            listCatalogos.forEach(e -> {
+                tbl_catalogo.getItems().add(e);
+            });
+        }
+    }
+    
+    @FXML
+    private void nuevoCatalogo(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/sagfx/gui/view/FormCatalogoFXML.fxml"));
+            Parent formCatalogo = loader.load();
+            FormCatalogoFXMLController ctrl = loader.getController();
+            ctrl.setData(this.catalogo,true);
+            Scene scene = new Scene(formCatalogo);
+            Stage stageCatalogo = new Stage();
+            stageCatalogo.setTitle("Catalogo");
+            stageCatalogo.setResizable(false);
+            stageCatalogo.setScene(scene);
+            stageCatalogo.showAndWait();
+            this.cargarCatalogo();
+
+        } catch (IOException ex) {
+            Logger.getLogger(CategoriasFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void editarCatalogo(ActionEvent event) {
+        if(this.catalogo != null){
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/sagfx/gui/view/FormCatalogoFXML.fxml"));
+                Parent formCatalogo = loader.load();
+                FormCatalogoFXMLController ctrl = loader.getController();
+                ctrl.setData(this.catalogo, false);
+                Scene scene = new Scene(formCatalogo);
+                Stage stageCatalogo = new Stage();
+                stageCatalogo.setTitle("Catálogo");
+                stageCatalogo.setResizable(false);
+                stageCatalogo.setScene(scene);
+                stageCatalogo.showAndWait();
+                
+                
+            } catch (IOException ex) {
+                Logger.getLogger(CategoriasFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Advertencia");
+            alert.setHeaderText(null);
+            alert.setContentText("Debe seleccionar un catálogo...");
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
+    private void activarCatalogo(ActionEvent event) {
+        if (this.catalogo != null) {
+            if ("N".equals(catalogo.getActivo())) {
+                Boolean conf = Window.showMessageConfirmation("¿Quiere activar el catálogo " + this.catalogo.getNombre() + "?");
+                if (conf) {
+                    this.actualizarEstatusCatalogo("S");
+                }
+            } else {
+                Window.showMessageInformation("El catálogo ya esta activo...");
+            }
+        } else {
+            Window.showMessageWarning("Debe seleccionar un catálogo...");
+        }
+    }
+
+    @FXML
+    private void desactivarCatalogo(ActionEvent event) {
+        if (this.catalogo != null) {
+            if ("S".equals(catalogo.getActivo())) {
+                Boolean conf = Window.showMessageConfirmation("¿Quiere desactivar el catálogo " + this.catalogo.getNombre() + "?");
+                if (conf) {
+                    this.actualizarEstatusCatalogo("N");
+                }
+
+            } else {
+                Window.showMessageInformation("El catálogo ya esta Inactivo");
+            }
+        } else {
+            Window.showMessageWarning("Debe seleccionar un catálogo...");
+        }
+    }
+    
+    public void actualizarEstatusCatalogo(String activo) {
+        try {
+            String data = "";
+            HashMap<String, Object> params = new LinkedHashMap<>();
+            params.put("idCatalogo", this.catalogo.getIdCatalogo());
+            params.put("activo", activo);
+            data = Requests.post("/catalogo/actualizarEstatusCatalogo/", params);
+
+            JSONObject dataJson = new JSONObject(data);
+
+            if ((Boolean) dataJson.get("error") == false) {
+                Window.showMessageInformation(dataJson.get("mensaje").toString());
+                this.cargarCatalogo();
+            } else {
+                Window.showMessageError(dataJson.get("mensaje").toString());
+            }
+        } catch (JSONException ex) {
+            Logger.getLogger(CategoriasFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

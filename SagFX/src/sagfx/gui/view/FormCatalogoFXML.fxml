@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="306.0" prefWidth="304.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sagfx.controller.FormCatalogoFXMLController">
+   <children>
+      <Label layoutX="20.0" layoutY="25.0" text="IdCatalogo: *">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="13.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txt_formIdCatalogo" layoutX="113.0" layoutY="21.0" prefHeight="25.0" prefWidth="166.0" />
+      <Label layoutX="21.0" layoutY="78.0" text="IdCategoria: *">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="13.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txt_formIdCategoriaCata" layoutX="113.0" layoutY="74.0" prefHeight="25.0" prefWidth="166.0" />
+      <Button fx:id="btn_formGuardarCategoria" layoutX="42.0" layoutY="240.0" mnemonicParsing="false" onAction="#guardar" prefHeight="32.0" prefWidth="89.0" text="Guardar">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/save.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btn_formCerrarCategoria" layoutX="174.0" layoutY="240.0" mnemonicParsing="false" onAction="#cancelar" prefHeight="32.0" prefWidth="89.0" text="Cancelar">
+         <graphic>
+            <ImageView fitHeight="19.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/close.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <CheckBox fx:id="chb_estatus" layoutX="167.0" layoutY="182.0" mnemonicParsing="false" text="Activo" />
+      <Label layoutX="23.0" layoutY="183.0" text="Activo: *">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="21.0" layoutY="131.0" text="Nombre: *">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="13.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txt_formNombreCatalogo" layoutX="113.0" layoutY="127.0" prefHeight="25.0" prefWidth="166.0" />
+   </children>
+</AnchorPane>
