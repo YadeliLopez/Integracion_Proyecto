@@ -8,8 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" fx:id="pnl_principal" prefHeight="361.0" prefWidth="600.0" style="-fx-background-color: #D0F5A9;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="sagfx.controller.LoginFXMLController">
+<AnchorPane id="AnchorPane" fx:id="pnl_principal" prefHeight="361.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sagfx.controller.LoginFXMLController">
    <children>
       <ImageView fx:id="img_banner" fitHeight="113.0" fitWidth="536.0" layoutX="32.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>

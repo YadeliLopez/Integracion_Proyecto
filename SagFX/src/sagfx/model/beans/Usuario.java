@@ -20,17 +20,22 @@ public class Usuario {
     private String usuario;
     private String contrasena;
     private int idRol;
+    private String rol;
     private int idEstatus;
+    private String estatus;
     private int idRancho;
+    private String rancho;
     private int idUsuarioAlta;
+    private String usuarioAlta;
     private Date fechaAlta;
     private int idUsuarioEditor;
+    private String usuarioEditor;
     private Date fechaEdicion;
 
     public Usuario() {
     }
 
-    public Usuario(int idUsuario, String nombre, String apellidoPaterno, String apellidoMaterno, String celular, String usuario, String contrasena, int idRol, int idEstatus, int idRancho, int idUsuarioAlta, Date fechaAlta, int idUsuarioEditor, Date fechaEdicion) {
+    public Usuario(int idUsuario, String nombre, String apellidoPaterno, String apellidoMaterno, String celular, String usuario, String contrasena, int idRol, String rol, int idEstatus, String estatus, int idRancho, String rancho, int idUsuarioAlta, String usuarioAlta, Date fechaAlta, int idUsuarioEditor, String usuarioEditor, Date fechaEdicion) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -39,11 +44,16 @@ public class Usuario {
         this.usuario = usuario;
         this.contrasena = contrasena;
         this.idRol = idRol;
+        this.rol = rol;
         this.idEstatus = idEstatus;
+        this.estatus = estatus;
         this.idRancho = idRancho;
+        this.rancho = rancho;
         this.idUsuarioAlta = idUsuarioAlta;
+        this.usuarioAlta = usuarioAlta;
         this.fechaAlta = fechaAlta;
         this.idUsuarioEditor = idUsuarioEditor;
+        this.usuarioEditor = usuarioEditor;
         this.fechaEdicion = fechaEdicion;
     }
 
@@ -79,16 +89,32 @@ public class Usuario {
         return idRol;
     }
 
+    public String getRol() {
+        return rol;
+    }
+
     public int getIdEstatus() {
         return idEstatus;
+    }
+
+    public String getEstatus() {
+        return estatus;
     }
 
     public int getIdRancho() {
         return idRancho;
     }
 
+    public String getRancho() {
+        return rancho;
+    }
+
     public int getIdUsuarioAlta() {
         return idUsuarioAlta;
+    }
+
+    public String getUsuarioAlta() {
+        return usuarioAlta;
     }
 
     public Date getFechaAlta() {
@@ -97,6 +123,10 @@ public class Usuario {
 
     public int getIdUsuarioEditor() {
         return idUsuarioEditor;
+    }
+
+    public String getUsuarioEditor() {
+        return usuarioEditor;
     }
 
     public Date getFechaEdicion() {
@@ -135,16 +165,32 @@ public class Usuario {
         this.idRol = idRol;
     }
 
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
     public void setIdEstatus(int idEstatus) {
         this.idEstatus = idEstatus;
+    }
+
+    public void setEstatus(String estatus) {
+        this.estatus = estatus;
     }
 
     public void setIdRancho(int idRancho) {
         this.idRancho = idRancho;
     }
 
+    public void setRancho(String rancho) {
+        this.rancho = rancho;
+    }
+
     public void setIdUsuarioAlta(int idUsuarioAlta) {
         this.idUsuarioAlta = idUsuarioAlta;
+    }
+
+    public void setUsuarioAlta(String usuarioAlta) {
+        this.usuarioAlta = usuarioAlta;
     }
 
     public void setFechaAlta(Date fechaAlta) {
@@ -153,6 +199,10 @@ public class Usuario {
 
     public void setIdUsuarioEditor(int idUsuarioEditor) {
         this.idUsuarioEditor = idUsuarioEditor;
+    }
+
+    public void setUsuarioEditor(String usuarioEditor) {
+        this.usuarioEditor = usuarioEditor;
     }
 
     public void setFechaEdicion(Date fechaEdicion) {
