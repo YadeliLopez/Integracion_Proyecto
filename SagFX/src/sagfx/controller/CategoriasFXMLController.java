@@ -331,7 +331,7 @@ public class CategoriasFXMLController implements Initializable {
         String respuesta = "";
         tbl_catalogo.getItems().clear();
         
-        respuesta = Requests.get("/catalogo/getAllCatalogo/");
+        respuesta = Requests.get("/catalogo/getCatalogosByIdCategoria/" + this.categoria.getIdCategoria());
         Gson gson = new Gson();
         
         //Definimos un TypeToken qie re´resenta una lista de objetos Categoría
@@ -413,7 +413,7 @@ public class CategoriasFXMLController implements Initializable {
                 stageCatalogo.setResizable(false);
                 stageCatalogo.setScene(scene);
                 stageCatalogo.showAndWait();
-                
+                this.cargarCatalogo();
                 
             } catch (IOException ex) {
                 Logger.getLogger(CategoriasFXMLController.class.getName()).log(Level.SEVERE, null, ex);
