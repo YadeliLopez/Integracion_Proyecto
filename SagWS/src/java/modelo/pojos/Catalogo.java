@@ -66,4 +66,9 @@ public class Catalogo {
     public void setOrden(Integer orden) {
         this.orden = orden;
     }  
+    
+    @Override
+    public String toString() {
+        return this.nombre;
+    }
 }

@@ -36,7 +36,7 @@
             <PasswordField fx:id="txt_contrasena" layoutX="119.0" layoutY="98.0" prefHeight="31.0" prefWidth="175.0" promptText="Contraseña" />
             <Button fx:id="btn_iniciar" layoutX="18.0" layoutY="170.0" mnemonicParsing="false" onAction="#iniciarSesion" prefHeight="31.0" prefWidth="120.0" text="Iniciar">
                <graphic>
-                  <ImageView fitHeight="18.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/login.png" />
                      </image>
@@ -45,7 +45,7 @@
             </Button>
             <Button fx:id="btn_cancelar" layoutX="174.0" layoutY="170.0" mnemonicParsing="false" onAction="#cancelar" prefHeight="31.0" prefWidth="120.0" text="Cancelar">
                <graphic>
-                  <ImageView fitHeight="17.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/close.png" />
                      </image>

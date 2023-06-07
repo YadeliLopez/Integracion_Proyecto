@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="479.0" prefWidth="422.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="sagfx.controller.FormUsuarioFXMLController">
+<AnchorPane id="AnchorPane" prefHeight="479.0" prefWidth="422.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sagfx.controller.FormUsuarioFXMLController">
    <children>
       <Label layoutX="43.0" layoutY="47.0" text="Nombre" />
       <TextField fx:id="txt_nombre" layoutX="167.0" layoutY="43.0" prefHeight="25.0" prefWidth="197.0" />
@@ -22,12 +22,26 @@
       <Label layoutX="43.0" layoutY="231.0" text="Contraseña" />
       <PasswordField fx:id="txt_contrasena" layoutX="167.0" layoutY="227.0" prefHeight="25.0" prefWidth="197.0" />
       <Label layoutX="45.0" layoutY="272.0" text="Rol" />
-      <ComboBox fx:id="cmb_rol" layoutX="167.0" layoutY="268.0" prefHeight="25.0" prefWidth="197.0" />
+      <ComboBox fx:id="cmb_rol" layoutX="167.0" layoutY="268.0" prefHeight="25.0" prefWidth="197.0" promptText="Selecciona un rol" />
       <Label layoutX="46.0" layoutY="310.0" text="Estatus" />
       <CheckBox fx:id="chb_estatus" layoutX="236.0" layoutY="310.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="60.0" text="Activo" />
       <Label layoutX="46.0" layoutY="344.0" text="Rancho" />
-      <ComboBox fx:id="cmb_rancho" layoutX="167.0" layoutY="340.0" prefHeight="25.0" prefWidth="197.0" />
-      <Button fx:id="btn_guardar" layoutX="61.0" layoutY="413.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="123.0" text="Guardar" />
-      <Button fx:id="btn_cancelar" layoutX="235.0" layoutY="413.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="123.0" text="Cancelar" />
+      <ComboBox fx:id="cmb_rancho" layoutX="167.0" layoutY="340.0" prefHeight="25.0" prefWidth="197.0" promptText="Selecciona un rancho" />
+      <Button fx:id="btn_guardar" layoutX="61.0" layoutY="413.0" mnemonicParsing="false" onAction="#guardar" prefHeight="38.0" prefWidth="123.0" text="Guardar">
+         <graphic>
+            <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/save.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <Button fx:id="btn_cancelar" layoutX="235.0" layoutY="413.0" mnemonicParsing="false" onAction="#cancelar" prefHeight="38.0" prefWidth="123.0" text="Cancelar">
+         <graphic>
+            <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/close.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
    </children>
 </AnchorPane>

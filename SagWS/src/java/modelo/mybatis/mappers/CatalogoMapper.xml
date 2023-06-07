@@ -18,6 +18,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         #{idCategoria, jdbcType=INTEGER,mode=IN})}
     </select>
     
+    <select id="getIngresos" resultType="modelo.pojos.Catalogo" statementType="CALLABLE">
+        {CALL sag.sp_getIngresos()}
+    </select> 
+    
+    <select id="getEgresos" resultType="modelo.pojos.Catalogo" statementType="CALLABLE">
+        {CALL sag.sp_getEgresos()}
+    </select> 
+    
     <insert id="registrarCatalogo" parameterType="map" statementType="CALLABLE">
         {CALL sag.sp_registrarCatalogo(
             #{idCatalogo, jdbcType=INTEGER,mode=IN},
@@ -39,5 +47,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{idCatalogo, jdbcType=INTEGER,mode=IN},
             #{activo, jdbcType=CHAR,mode=IN})}
     </update>
+    
+    <select id="getAllRolesUsuario" resultType="modelo.pojos.Catalogo" statementType="CALLABLE">
+        {CALL sag.sp_getAllRolesUsuario()}
+    </select>
 
 </mapper>
