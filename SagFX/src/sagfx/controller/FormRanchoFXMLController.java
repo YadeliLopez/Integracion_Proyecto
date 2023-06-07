@@ -5,31 +5,27 @@
  */
 package sagfx.controller;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import java.net.URL;
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.PasswordField;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import org.json.JSONException;
 import org.json.JSONObject;
 import sagfx.api.requests.Requests;
-import sagfx.model.beans.Catalogo;
 import sagfx.model.beans.Rancho;
 import sagfx.model.beans.Usuario;
 import sagfx.utils.Window;
@@ -39,61 +35,50 @@ import sagfx.utils.Window;
  *
  * @author Yadelí López
  */
-public class FormUsuarioFXMLController implements Initializable {
+public class FormRanchoFXMLController implements Initializable {
 
     @FXML
     private TextField txt_nombre;
     @FXML
-    private TextField txt_apellidoP;
+    private TextField txt_direccion;
     @FXML
-    private TextField txt_apellidoM;
-    @FXML
-    private TextField txt_celular;
-    @FXML
-    private TextField txt_usuario;
-    @FXML
-    private PasswordField txt_contrasena;
-    @FXML
-    private ComboBox<Catalogo> cmb_rol;
+    private TextField txt_encargado;
     @FXML
     private CheckBox chb_estatus;
-    @FXML
-    private ComboBox<Rancho> cmb_rancho;
     @FXML
     private Button btn_guardar;
     @FXML
     private Button btn_cancelar;
     
-    Usuario usuario = null;
+    private Rancho rancho = null;
     Boolean isNew = null;
     private HashMap<String, Object> context;
+    String fechaNow;
+    @FXML
+    private Label lbl_fecha;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        cargarRolesUsuario();
-        cargarRanchos();
-    }  
+    }   
     
     //Para pasar datos en cada controlador
-    public void setData(Usuario usuario, Boolean isNew, HashMap<String, Object> context) {
-        this.usuario = usuario;
+    public void setData(Rancho rancho, Boolean isNew, HashMap<String, Object> context) {
+        this.rancho = rancho;
         this.isNew = isNew;
         this.context=context;
-        this.cargarUsuarios();
+        this.cargarRanchos();
     }
     
-    public void cargarUsuarios() {
+    public void cargarRanchos() {
         if (!this.isNew) {
-            this.txt_nombre.setText(usuario.getNombre());
-            this.txt_apellidoP.setText(usuario.getApellidoPaterno());
-            this.txt_apellidoM.setText(usuario.getApellidoMaterno());
-            this.txt_celular.setText(usuario.getCelular());
-            this.txt_usuario.setText(usuario.getUsuario());
-            this.txt_contrasena.setText(usuario.getContrasena());
-            if ("S".equals(usuario.getEstatus())) {
+            this.txt_nombre.setText(rancho.getNombre());
+            this.txt_direccion.setText(rancho.getDireccion());
+            this.txt_encargado.setText(rancho.getEncargado());
+            if ("S".equals(rancho.getEstatus())) {
                 this.chb_estatus.setText("Activo");
                 this.chb_estatus.setSelected(true);
             } else {
@@ -110,14 +95,6 @@ public class FormUsuarioFXMLController implements Initializable {
             this.chb_estatus.setText("Inactivo");
         }
     }
-    
-    private Boolean validarDatos() {
-        Boolean valido = true;
-        if(this.txt_nombre.getText().isEmpty() || this.txt_apellidoP.getText().isEmpty() || this.txt_apellidoM.getText().isEmpty()){
-            valido=false;
-        }
-        return valido;
-    }
 
     @FXML
     private void guardar(ActionEvent event) {
@@ -129,8 +106,9 @@ public class FormUsuarioFXMLController implements Initializable {
                 
                 HashMap<String, Object> params = new LinkedHashMap<>();
                 params.put("nombre", this.txt_nombre.getText());
-                params.put("apellidoPaterno", this.txt_apellidoP.getText());
-                params.put("apellidoMaterno", this.txt_apellidoM.getText());
+                params.put("direccion", this.txt_direccion.getText());
+                params.put("encargado", this.txt_encargado.getText());
+                
                 if (this.chb_estatus.isSelected()) {
                     params.put("idEstatus", 101);
                 } else {
@@ -138,11 +116,21 @@ public class FormUsuarioFXMLController implements Initializable {
                 }
                 if (this.isNew) {
                     params.put("idUsuarioAlta", usuario.getIdUsuario());
-                    data = Requests.post("/usuario/registrarUsuario/", params);
+                    //fechaAlta.setValue(LocalDate.now());
+                    //fechaAlta.setEditable(false);
+                    params.put("fechaAlta", LocalDate.now());
+                    data = Requests.post("/rancho/registrarRancho/", params);
                 } else {
-                    params.put("idUsuario", usuario.getIdUsuario());
+                    params.put("idRancho", rancho.getIdRancho());
                     params.put("idUsuarioEditor", usuario.getIdUsuario());
-                    data = Requests.post("/usuario/actualizarUsuario/", params);
+                    //fechaAlta.setValue(LocalDate.now());
+                    //fechaAlta.setEditable(false);G
+                    //fechaNow = LocalDate.now().toString();
+                    //System.out.println(fechaNow);
+                    //fecha.setText(fechaNow);
+                    
+                    params.put("fechaEdicion", LocalDate.now());
+                    data = Requests.post("/rancho/actualizarRancho/", params);
                 }
                 JSONObject dataJson = new JSONObject(data);
 
@@ -173,35 +161,18 @@ public class FormUsuarioFXMLController implements Initializable {
             alert.showAndWait();
         }
     }
+    
+    private Boolean validarDatos() {
+        Boolean valido = true;
+        if(this.txt_nombre.getText().isEmpty() || this.txt_direccion.getText().isEmpty() || this.txt_encargado.getText().isEmpty()){
+            valido=false;
+        }
+        return valido;
+    }
 
     @FXML
     private void cancelar(ActionEvent event) {
         Window.close(event);
-    }
-    
-    public void cargarRolesUsuario(){
-        String respuesta = "";
-        respuesta = Requests.get("/catalogo/getAllRolesUsuario/");
-        Gson gson = new Gson();
-        TypeToken<List<Catalogo>> token = new TypeToken<List<Catalogo>>(){
-        };
-        List<Catalogo> listRoles = gson.fromJson(respuesta, token.getType());
-        
-        listRoles.forEach(e ->{
-            cmb_rol.getItems().add(e);
-        });
-    }
-    
-    public void cargarRanchos(){
-        String respuesta = "";
-        respuesta = Requests.get("/rancho/getAllRanchos/");
-        Gson gson = new Gson();
-        TypeToken<List<Rancho>> token = new TypeToken<List<Rancho>>(){
-        };
-        List<Rancho> listRanchos = gson.fromJson(respuesta, token.getType());
-        listRanchos.forEach(e ->{
-            cmb_rancho.getItems().add(e);
-        });
     }
     
 }

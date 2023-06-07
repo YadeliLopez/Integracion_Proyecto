@@ -158,6 +158,7 @@ public class LoginFXMLController implements Initializable {
 
     @FXML
     private void cancelar(ActionEvent event) {
+        Window.close(event);
     }
     
      //Para validar si los campos estan vacios o no

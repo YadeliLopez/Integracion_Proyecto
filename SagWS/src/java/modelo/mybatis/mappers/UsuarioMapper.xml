@@ -20,8 +20,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{idRol, jdbcType=INTEGER,mode=IN},
             #{idEstatus, jdbcType=INTEGER,mode=IN},
             #{idRancho, jdbcType=INTEGER,mode=IN},
-            #{idUsuarioAlta, jdbcType=INTEGER,mode=IN},
-            #{fechaAlta, jdbcType=DATE,mode=IN})}
+            #{idUsuarioCreador, jdbcType=INTEGER,mode=IN},
+            #{fechaCreacion, jdbcType=DATE,mode=IN})}
     </insert>
     
     <update id="actualizarUsuario" parameterType="map" statementType="CALLABLE">
@@ -36,10 +36,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{idRol, jdbcType=INTEGER,mode=IN},
             #{idEstatus, jdbcType=INTEGER,mode=IN},
             #{idRancho, jdbcType=INTEGER,mode=IN},
-            #{idUsuarioAlta, jdbcType=INTEGER,mode=IN},
-            #{fechaAlta, jdbcType=DATE,mode=IN},
-            #{idUsuarioEditor, jdbcType=INTEGER,mode=IN},
-            #{fechaEdicion, jdbcType=DATE,mode=IN})}
+            #{idUsuarioModificador, jdbcType=INTEGER,mode=IN},
+            #{fechaModificacion, jdbcType=DATE,mode=IN})}
     </update>
     
     <update id="actualizarEstatusUsuario" parameterType="map" statementType="CALLABLE">
@@ -47,5 +45,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{idUsuario, jdbcType=INTEGER,mode=IN},
             #{idEstatus, jdbcType=INTEGER,mode=IN})}
     </update>
+    
+     <select id="buscarUsuario" resultType="modelo.pojos.Usuario" statementType="CALLABLE" parameterType="String">
+        {CALL sag.sp_buscarUsuario(
+            #{busqueda, jdbcType=VARCHAR,mode=IN})}
+    </select>
     
 </mapper>

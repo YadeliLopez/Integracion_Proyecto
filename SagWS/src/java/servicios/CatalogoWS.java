@@ -66,6 +66,44 @@ public class CatalogoWS {
         return list;
     }
     
+    @GET
+    @Path("getIngresos")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Catalogo>getIngresos(){
+        List<Catalogo> list = new ArrayList<Catalogo>();
+        SqlSession conn = null;
+        try{
+            conn = MyBatisUtil.getSession();
+            list = conn.selectList("Catalogo.getIngresos");
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            if(conn!=null){
+                conn.close();
+            }
+        }
+        return list;
+    }
+    
+    @GET
+    @Path("getEgresos")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Catalogo>getEgresos(){
+        List<Catalogo> list = new ArrayList<Catalogo>();
+        SqlSession conn = null;
+        try{
+            conn = MyBatisUtil.getSession();
+            list = conn.selectList("Catalogo.getEgresos");
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            if(conn!=null){
+                conn.close();
+            }
+        }
+        return list;
+    }
+    
     @POST
     @Path("registrarCatalogo")
     @Produces(MediaType.APPLICATION_JSON)
@@ -154,5 +192,23 @@ public class CatalogoWS {
             conn.close();
         }
         return res;
+    }
+    
+    @GET
+    @Path("getAllRolesUsuario")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Catalogo>getAllRolesUsuario(){
+        List<Catalogo> list = new ArrayList<Catalogo>();
+        SqlSession conn = null;
+        try{
+            conn=MyBatisUtil.getSession();
+            list=conn.selectList("Catalogo.getAllRolesUsuario");
+        }catch(Exception ex){
+            ex.printStackTrace();
+            
+        }finally{
+            conn.close();
+        }
+        return list;
     }
 }

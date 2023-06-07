@@ -141,7 +141,7 @@ public class CategoriaWS {
         return res;
     }
     
-     @POST
+    @POST
     @Path("buscarCategorias")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Categoria> buscarCategorias(

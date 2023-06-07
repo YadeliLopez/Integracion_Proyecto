@@ -9,4 +9,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         {CALL sag.sp_getAllRanchos()}
     </select>
     
+    <insert id="registrarRancho" parameterType="map" statementType="CALLABLE">
+        {CALL sag.sp_registrarRancho(
+            #{nombre, jdbcType=VARCHAR,mode=IN},
+            #{direccion, jdbcType=VARCHAR,mode=IN},
+            #{encargado, jdbcType=VARCHAR,mode=IN},
+            #{idEstatus, jdbcType=INTEGER,mode=IN},
+            #{idUsuarioCreador, jdbcType=INTEGER,mode=IN},
+            #{fechaCreacion, jdbcType=VARCHAR,mode=IN})}
+    </insert>
+    
+    <update id="actualizarRancho" parameterType="map" statementType="CALLABLE">
+        {CALL sag.sp_actualizarRancho(
+            #{idRancho, jdbcType=INTEGER,mode=IN},
+            #{nombre, jdbcType=VARCHAR,mode=IN},
+            #{direccion, jdbcType=VARCHAR,mode=IN},
+            #{encargado, jdbcType=VARCHAR,mode=IN},
+            #{idEstatus, jdbcType=INTEGER,mode=IN},
+            #{idUsuarioModificador, jdbcType=INTEGER,mode=IN},
+            #{fechaModificacion, jdbcType=VARCHAR,mode=IN})}
+    </update>
+    
+    <update id="actualizarEstatusRancho" parameterType="map" statementType="CALLABLE">
+        {CALL sag.sp_actualizarEstatusRancho(
+            #{idRancho, jdbcType=INTEGER,mode=IN},
+            #{idEstatus, jdbcType=INTEGER,mode=IN})}
+    </update>
+    
+    <select id="buscarRancho" resultType="modelo.pojos.Rancho" statementType="CALLABLE" parameterType="String">
+        {CALL sag.sp_buscarRancho(
+            #{busqueda, jdbcType=VARCHAR,mode=IN})}
+    </select>
+    
 </mapper>

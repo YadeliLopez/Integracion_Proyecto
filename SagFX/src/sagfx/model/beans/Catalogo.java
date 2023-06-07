@@ -57,5 +57,9 @@ public class Catalogo {
         this.activo = activo;
     }
     
+    @Override
+    public String toString() {
+        return this.nombre;
+    }
     
 }

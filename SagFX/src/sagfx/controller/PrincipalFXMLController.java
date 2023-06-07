@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
@@ -37,6 +38,8 @@ public class PrincipalFXMLController implements Initializable {
     private MenuItem mi_ingresos;
     @FXML
     private MenuItem mi_ranchos;
+    
+    private HashMap<String, Object> context;
 
     /**
      * Initializes the controller class.
@@ -49,6 +52,7 @@ public class PrincipalFXMLController implements Initializable {
 //Para pasar datos en cada controlador
     public void setData(HashMap<String, Object> context){
         System.out.println(context);
+        this.context=context;
     }    
     
     @FXML
@@ -59,6 +63,8 @@ public class PrincipalFXMLController implements Initializable {
             
             //Se obtiene el nodo padre que contiene los nodos secuendarios de la interfaz fxml
             Parent principal = loader.load();
+            IngresoEgresoFXMLController ctrl = loader.getController();
+            ctrl.setData(this.context);
             pnl_principal.setCenter(principal);
         }catch(IOException ex){
             Logger.getLogger(PrincipalFXMLController.class.getName()).log(Level.SEVERE, null, ex);
@@ -101,6 +107,8 @@ public class PrincipalFXMLController implements Initializable {
             
             //Se obtiene el nodo padre que contiene los nodos secuendarios de la interfaz fxml
             Parent principal = loader.load();
+            RanchosFXMLController ctrl = loader.getController();
+            ctrl.setData(this.context);
             pnl_principal.setCenter(principal);
         }catch(IOException ex){
             Logger.getLogger(PrincipalFXMLController.class.getName()).log(Level.SEVERE, null, ex);

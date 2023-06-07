@@ -18,29 +18,29 @@ public class Rancho {
     private String encargado;
     private int idEstatus;
     private String estatus;
-    private int idUsuarioAlta;
-    private String usuarioAlta;
-    private Date fechaAlta;
-    private int idUsuarioEditor;
-    private String usuarioEditor;
-    private Date fechaEdicion;
+    private int idUsuarioCreador;
+    private String usuarioCreador;
+    private String fechaCreacion;
+    private int idUsuarioModificador;
+    private String usuarioModificador;
+    private String fechaModificacion;
 
     public Rancho() {
     }
 
-    public Rancho(int idRancho, String nombre, String direccion, String encargado, int idEstatus, String estatus, int idUsuarioAlta, String usuarioAlta, Date fechaAlta, int idUsuarioEditor, String usuarioEditor, Date fechaEdicion) {
+    public Rancho(int idRancho, String nombre, String direccion, String encargado, int idEstatus, String estatus, int idUsuarioCreador, String usuarioCreador, String fechaCreacion, int idUsuarioModificador, String usuarioModificador, String fechaModificacion) {
         this.idRancho = idRancho;
         this.nombre = nombre;
         this.direccion = direccion;
         this.encargado = encargado;
         this.idEstatus = idEstatus;
         this.estatus = estatus;
-        this.idUsuarioAlta = idUsuarioAlta;
-        this.usuarioAlta = usuarioAlta;
-        this.fechaAlta = fechaAlta;
-        this.idUsuarioEditor = idUsuarioEditor;
-        this.usuarioEditor = usuarioEditor;
-        this.fechaEdicion = fechaEdicion;
+        this.idUsuarioCreador = idUsuarioCreador;
+        this.usuarioCreador = usuarioCreador;
+        this.fechaCreacion = fechaCreacion;
+        this.idUsuarioModificador = idUsuarioModificador;
+        this.usuarioModificador = usuarioModificador;
+        this.fechaModificacion = fechaModificacion;
     }
 
     public int getIdRancho() {
@@ -67,28 +67,28 @@ public class Rancho {
         return estatus;
     }
 
-    public int getIdUsuarioAlta() {
-        return idUsuarioAlta;
+    public int getIdUsuarioCreador() {
+        return idUsuarioCreador;
     }
 
-    public String getUsuarioAlta() {
-        return usuarioAlta;
+    public String getUsuarioCreador() {
+        return usuarioCreador;
     }
 
-    public Date getFechaAlta() {
-        return fechaAlta;
+    public String getFechaCreacion() {
+        return fechaCreacion;
     }
 
-    public int getIdUsuarioEditor() {
-        return idUsuarioEditor;
+    public int getIdUsuarioModificador() {
+        return idUsuarioModificador;
     }
 
-    public String getUsuarioEditor() {
-        return usuarioEditor;
+    public String getUsuarioModificador() {
+        return usuarioModificador;
     }
 
-    public Date getFechaEdicion() {
-        return fechaEdicion;
+    public String getFechaModificacion() {
+        return fechaModificacion;
     }
 
     public void setIdRancho(int idRancho) {
@@ -115,28 +115,30 @@ public class Rancho {
         this.estatus = estatus;
     }
 
-    public void setIdUsuarioAlta(int idUsuarioAlta) {
-        this.idUsuarioAlta = idUsuarioAlta;
+    public void setIdUsuarioCreador(int idUsuarioCreador) {
+        this.idUsuarioCreador = idUsuarioCreador;
     }
 
-    public void setUsuarioAlta(String usuarioAlta) {
-        this.usuarioAlta = usuarioAlta;
+    public void setUsuarioCreador(String usuarioCreador) {
+        this.usuarioCreador = usuarioCreador;
     }
 
-    public void setFechaAlta(Date fechaAlta) {
-        this.fechaAlta = fechaAlta;
+    public void setFechaCreacion(String fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
     }
 
-    public void setIdUsuarioEditor(int idUsuarioEditor) {
-        this.idUsuarioEditor = idUsuarioEditor;
+    public void setIdUsuarioModificador(int idUsuarioModificador) {
+        this.idUsuarioModificador = idUsuarioModificador;
     }
 
-    public void setUsuarioEditor(String usuarioEditor) {
-        this.usuarioEditor = usuarioEditor;
+    public void setUsuarioModificador(String usuarioModificador) {
+        this.usuarioModificador = usuarioModificador;
     }
 
-    public void setFechaEdicion(Date fechaEdicion) {
-        this.fechaEdicion = fechaEdicion;
+    public void setFechaModificacion(String fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
     }
+
+    
     
 }

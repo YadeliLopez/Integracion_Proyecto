@@ -20,6 +20,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.core.MediaType;
 import modelo.mybatis.MyBatisUtil;
+import modelo.pojos.Rancho;
 import modelo.pojos.Usuario;
 import modelo.pojos.Respuesta;
 import org.apache.ibatis.session.SqlSession;
@@ -78,8 +79,8 @@ public class UsuarioWS {
             @FormParam("idRol") int idRol,
             @FormParam("idEstatus") int idEstatus,
             @FormParam("idRancho") int idRancho,
-            @FormParam("idUsuarioAlta") int idUsuarioAlta,
-            @FormParam("fechaAlta") String fechaAlta){
+            @FormParam("idUsuarioCreador") int idUsuarioCreador,
+            @FormParam("fechaCreacion") String fechaCreacion){
         Respuesta res = new Respuesta();
         SqlSession conn = MyBatisUtil.getSession();
         try{
@@ -93,8 +94,8 @@ public class UsuarioWS {
             param.put("idRol", idRol);
             param.put("idEstatus", idEstatus);
             param.put("idRancho", idRancho);
-            param.put("idUsuarioAlta", idUsuarioAlta);
-            param.put("fechaAlta", fechaAlta);
+            param.put("idUsuarioCreador", idUsuarioCreador);
+            param.put("fechaCreacion", fechaCreacion);
             
             conn.insert("Usuario.registrarUsuario", param);
             conn.commit();
@@ -125,10 +126,8 @@ public class UsuarioWS {
             @FormParam("idRol") int idRol,
             @FormParam("idEstatus") int idEstatus,
             @FormParam("idRancho") int idRancho,
-            @FormParam("idUsuarioAlta") int idUsuarioAlta,
-            @FormParam("fechaAlta") String fechaAlta,
-            @FormParam("idUsuarioEditor") int idUsuarioEditor,
-            @FormParam("fechaEdicion") String fechaEdicion){
+            @FormParam("idUsuarioModificador") int idUsuarioModificador,
+            @FormParam("fechaModificacion") String fechaModificacion){
         Respuesta res = new Respuesta();
         SqlSession conn = MyBatisUtil.getSession();
         try{
@@ -143,10 +142,8 @@ public class UsuarioWS {
             param.put("idRol", idRol);
             param.put("idEstatus", idEstatus);
             param.put("idRancho", idRancho);
-            param.put("idUsuarioAlta", idUsuarioAlta);
-            param.put("fechaAlta", fechaAlta);
-            param.put("idUsuarioEditor", idUsuarioEditor);
-            param.put("fechaEdicion", fechaEdicion);
+            param.put("idUsuarioModificador", idUsuarioModificador);
+            param.put("fechaModificacion", fechaModificacion);
             
             conn.update("Usuario.actualizarUsuario", param);
             conn.commit();
@@ -189,5 +186,23 @@ public class UsuarioWS {
             conn.close();
         }
         return res;
+    }
+    
+    @POST
+    @Path("buscarUsuario")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Usuario> buscarUsuario(
+            @FormParam("busqueda") String busqueda){
+        List<Usuario> list = new ArrayList<Usuario>();
+        SqlSession conn = null;
+        try{
+            conn = MyBatisUtil.getSession();
+            list = conn.selectList("Usuario.buscarUsuario", busqueda);
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            conn.close();
+        }
+        return list;
     }
 }
