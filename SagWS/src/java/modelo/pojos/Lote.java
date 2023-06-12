@@ -14,24 +14,32 @@ public class Lote {
     private String nombre;
     private String descripcion;
     private int idEstatus;
+    private String estatus;
     private int idRancho;
+    private String rancho;
     private int idUsuarioCreador;
+    private String usuarioCreador;
     private String fechaCreacion;
     private int idUsuarioModificador;
+    private String usuarioModificador;
     private String fechaModificacion;
 
     public Lote() {
     }
 
-    public Lote(int idLote, String nombre, String descripcion, int idEstatus, int idRancho, int idUsuarioCreador, String fechaCreacion, int idUsuarioModificador, String fechaModificacion) {
+    public Lote(int idLote, String nombre, String descripcion, int idEstatus, String estatus, int idRancho, String rancho, int idUsuarioCreador, String usuarioCreador, String fechaCreacion, int idUsuarioModificador, String usuarioModificador, String fechaModificacion) {
         this.idLote = idLote;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.idEstatus = idEstatus;
+        this.estatus = estatus;
         this.idRancho = idRancho;
+        this.rancho = rancho;
         this.idUsuarioCreador = idUsuarioCreador;
+        this.usuarioCreador = usuarioCreador;
         this.fechaCreacion = fechaCreacion;
         this.idUsuarioModificador = idUsuarioModificador;
+        this.usuarioModificador = usuarioModificador;
         this.fechaModificacion = fechaModificacion;
     }
 
@@ -51,12 +59,24 @@ public class Lote {
         return idEstatus;
     }
 
+    public String getEstatus() {
+        return estatus;
+    }
+
     public int getIdRancho() {
         return idRancho;
     }
 
+    public String getRancho() {
+        return rancho;
+    }
+
     public int getIdUsuarioCreador() {
         return idUsuarioCreador;
+    }
+
+    public String getUsuarioCreador() {
+        return usuarioCreador;
     }
 
     public String getFechaCreacion() {
@@ -65,6 +85,10 @@ public class Lote {
 
     public int getIdUsuarioModificador() {
         return idUsuarioModificador;
+    }
+
+    public String getUsuarioModificador() {
+        return usuarioModificador;
     }
 
     public String getFechaModificacion() {
@@ -87,12 +111,24 @@ public class Lote {
         this.idEstatus = idEstatus;
     }
 
+    public void setEstatus(String estatus) {
+        this.estatus = estatus;
+    }
+
     public void setIdRancho(int idRancho) {
         this.idRancho = idRancho;
     }
 
+    public void setRancho(String rancho) {
+        this.rancho = rancho;
+    }
+
     public void setIdUsuarioCreador(int idUsuarioCreador) {
         this.idUsuarioCreador = idUsuarioCreador;
+    }
+
+    public void setUsuarioCreador(String usuarioCreador) {
+        this.usuarioCreador = usuarioCreador;
     }
 
     public void setFechaCreacion(String fechaCreacion) {
@@ -103,9 +139,14 @@ public class Lote {
         this.idUsuarioModificador = idUsuarioModificador;
     }
 
+    public void setUsuarioModificador(String usuarioModificador) {
+        this.usuarioModificador = usuarioModificador;
+    }
+
     public void setFechaModificacion(String fechaModificacion) {
         this.fechaModificacion = fechaModificacion;
     }
+
     
     
 }

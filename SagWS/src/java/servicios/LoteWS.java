@@ -13,6 +13,7 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -153,5 +154,24 @@ public class LoteWS {
             conn.close();
         }
         return res;
+    }
+    
+    @GET
+    @Path("getAllLotesByIdRancho/{idRancho}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Lote>getAllLotesByIdRancho(@PathParam("idRancho") Integer idRancho){
+        List<Lote> list = new ArrayList<Lote>();
+        SqlSession conn = null;
+        try{
+            conn = MyBatisUtil.getSession();
+            list = conn.selectList("Lote.getAllLotesByIdRancho", idRancho);
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally{
+            if(conn!=null){
+                conn.close();
+            }
+        }
+        return list;
     }
 }

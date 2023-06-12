@@ -15,28 +15,36 @@ public class Cria {
     private String sexo;
     private String fechaNacimiento;
     private int idRaza;
+    private String raza;
     private int idEstatus;
+    private String estatus;
     private String observaciones;
     private int idUsuarioCreador;
+    private String usuarioCreador;
     private String fechaCreacion;
     private int idUsuarioModificador;
+    private String usuarioModificador;
     private String fechaModificacion;
     private String fechaBaja;
 
     public Cria() {
     }
 
-    public Cria(int idCria, int idHatoMadre, String sexo, String fechaNacimiento, int idRaza, int idEstatus, String observaciones, int idUsuarioCreador, String fechaCreacion, int idUsuarioModificador, String fechaModificacion, String fechaBaja) {
+    public Cria(int idCria, int idHatoMadre, String sexo, String fechaNacimiento, int idRaza, String raza, int idEstatus, String estatus, String observaciones, int idUsuarioCreador, String usuarioCreador, String fechaCreacion, int idUsuarioModificador, String usuarioModificador, String fechaModificacion, String fechaBaja) {
         this.idCria = idCria;
         this.idHatoMadre = idHatoMadre;
         this.sexo = sexo;
         this.fechaNacimiento = fechaNacimiento;
         this.idRaza = idRaza;
+        this.raza = raza;
         this.idEstatus = idEstatus;
+        this.estatus = estatus;
         this.observaciones = observaciones;
         this.idUsuarioCreador = idUsuarioCreador;
+        this.usuarioCreador = usuarioCreador;
         this.fechaCreacion = fechaCreacion;
         this.idUsuarioModificador = idUsuarioModificador;
+        this.usuarioModificador = usuarioModificador;
         this.fechaModificacion = fechaModificacion;
         this.fechaBaja = fechaBaja;
     }
@@ -61,8 +69,16 @@ public class Cria {
         return idRaza;
     }
 
+    public String getRaza() {
+        return raza;
+    }
+
     public int getIdEstatus() {
         return idEstatus;
+    }
+
+    public String getEstatus() {
+        return estatus;
     }
 
     public String getObservaciones() {
@@ -73,12 +89,20 @@ public class Cria {
         return idUsuarioCreador;
     }
 
+    public String getUsuarioCreador() {
+        return usuarioCreador;
+    }
+
     public String getFechaCreacion() {
         return fechaCreacion;
     }
 
     public int getIdUsuarioModificador() {
         return idUsuarioModificador;
+    }
+
+    public String getUsuarioModificador() {
+        return usuarioModificador;
     }
 
     public String getFechaModificacion() {
@@ -109,8 +133,16 @@ public class Cria {
         this.idRaza = idRaza;
     }
 
+    public void setRaza(String raza) {
+        this.raza = raza;
+    }
+
     public void setIdEstatus(int idEstatus) {
         this.idEstatus = idEstatus;
+    }
+
+    public void setEstatus(String estatus) {
+        this.estatus = estatus;
     }
 
     public void setObservaciones(String observaciones) {
@@ -121,12 +153,20 @@ public class Cria {
         this.idUsuarioCreador = idUsuarioCreador;
     }
 
+    public void setUsuarioCreador(String usuarioCreador) {
+        this.usuarioCreador = usuarioCreador;
+    }
+
     public void setFechaCreacion(String fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
 
     public void setIdUsuarioModificador(int idUsuarioModificador) {
         this.idUsuarioModificador = idUsuarioModificador;
+    }
+
+    public void setUsuarioModificador(String usuarioModificador) {
+        this.usuarioModificador = usuarioModificador;
     }
 
     public void setFechaModificacion(String fechaModificacion) {
@@ -136,6 +176,7 @@ public class Cria {
     public void setFechaBaja(String fechaBaja) {
         this.fechaBaja = fechaBaja;
     }
+
     
     
 }

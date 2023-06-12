@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="Consulta">
+    <select id="getAllConsultas" resultType="modelo.pojos.Consulta" statementType="CALLABLE">
+        {CALL sag.sp_getAllConsultas()}
+    </select>
+    
+    <insert id="registrarConsulta" parameterType="map" statementType="CALLABLE">
+        {CALL sag.sp_registrarConsulta(
+            #{idHato, jdbcType=INTEGER,mode=IN},
+            #{idEstatus, jdbcType=INTEGER,mode=IN},
+            #{veterinario, jdbcType=VARCHAR,mode=IN},
+            #{fechaAtencion, jdbcType=VARCHAR,mode=IN},
+            #{observaciones, jdbcType=VARCHAR,mode=IN},
+            #{motivoAtencion, jdbcType=VARCHAR,mode=IN})}
+    </insert>
+    
+    <update id="actualizarConsulta" parameterType="map" statementType="CALLABLE">
+        {CALL sag.sp_actualizarConsulta(
+            #{idConsulta, jdbcType=INTEGER,mode=IN},
+            #{idHato, jdbcType=INTEGER,mode=IN},
+            #{idEstatus, jdbcType=INTEGER,mode=IN},
+            #{veterinario, jdbcType=VARCHAR,mode=IN},
+            #{fechaAtencion, jdbcType=VARCHAR,mode=IN},
+            #{observaciones, jdbcType=VARCHAR,mode=IN},
+            #{motivoAtencion, jdbcType=VARCHAR,mode=IN})}
+    </update>
+    
+    <update id="actualizarEstatusConsulta" parameterType="map" statementType="CALLABLE">
+        {CALL sag.sp_actualizarEstatusConsulta(
+            #{idConsulta, jdbcType=INTEGER,mode=IN},
+            #{idEstatus, jdbcType=INTEGER,mode=IN})}
+    </update>
+    
+    <update id="eliminarConsulta" parameterType="map" statementType="CALLABLE">
+        {CALL sag.sp_eliminarConsulta(
+        #{idConsulta, jdbcType=INTEGER,mode=IN})}
+    </update>
+    
+</mapper>

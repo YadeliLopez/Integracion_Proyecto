@@ -51,4 +51,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         #{motivoBaja, jdbcType=VARCHAR,mode=IN})}
     </update>
     
+    <select id="buscarHato" resultType="modelo.pojos.Hato" statementType="CALLABLE" parameterType="String">
+        {CALL sag.sp_buscarHato(
+            #{arete, jdbcType=VARCHAR,mode=IN},
+            #{raza, jdbcType=VARCHAR,mode=IN},
+            #{lote, jdbcType=VARCHAR,mode=IN},
+            #{rancho, jdbcType=VARCHAR,mode=IN})}
+    </select>
+    
 </mapper>
