@@ -17,7 +17,7 @@
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="txt_busqueda" layoutX="113.0" layoutY="18.0" prefHeight="35.0" prefWidth="332.0" promptText="Ingresa el nombre del ingreso o egreso " />
+            <TextField fx:id="txt_busqueda" layoutX="113.0" layoutY="18.0" prefHeight="35.0" prefWidth="332.0" promptText="Ingresa el concepto del movimiento" />
             <Button fx:id="btn_buscar" layoutX="493.0" layoutY="18.0" mnemonicParsing="false" onAction="#buscarMov" prefHeight="35.0" prefWidth="137.0" text="Buscar">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />

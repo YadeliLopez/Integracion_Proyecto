@@ -33,12 +33,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <update id="actualizarEstatusRancho" parameterType="map" statementType="CALLABLE">
         {CALL sag.sp_actualizarEstatusRancho(
             #{idRancho, jdbcType=INTEGER,mode=IN},
-            #{idEstatus, jdbcType=INTEGER,mode=IN})}
+            #{idEstatus, jdbcType=INTEGER,mode=IN},
+            #{idUsuarioModificador, jdbcType=INTEGER,mode=IN},
+            #{fechaModificacion, jdbcType=VARCHAR,mode=IN})}
     </update>
     
     <select id="buscarRancho" resultType="modelo.pojos.Rancho" statementType="CALLABLE" parameterType="String">
         {CALL sag.sp_buscarRancho(
-            #{busqueda, jdbcType=VARCHAR,mode=IN})}
+            #{filtro, jdbcType=VARCHAR,mode=IN})}
     </select>
     
 </mapper>

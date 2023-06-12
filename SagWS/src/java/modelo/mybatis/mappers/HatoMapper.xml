@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="Hato">
+    <select id="getAllHatos" resultType="modelo.pojos.Hato" statementType="CALLABLE">
+        {CALL sag.sp_getAllHatos()}
+    </select>
+    
+    <insert id="registrarHato" parameterType="map" statementType="CALLABLE">
+        {CALL sag.sp_registrarHato(
+            #{arete, jdbcType=VARCHAR,mode=IN},
+            #{idRaza, jdbcType=INTEGER,mode=IN},
+            #{idLote, jdbcType=INTEGER,mode=IN},
+            #{idRancho, jdbcType=INTEGER,mode=IN},
+            #{sexo, jdbcType=VARCHAR,mode=IN},
+            #{idEstatus, jdbcType=INTEGER,mode=IN},
+            #{descripcionHato, jdbcType=VARCHAR,mode=IN},
+            #{idUsuarioCreador, jdbcType=INTEGER,mode=IN},
+            #{fechaCreacion, jdbcType=VARCHAR,mode=IN})}
+    </insert>
+    
+    <update id="actualizarHato" parameterType="map" statementType="CALLABLE">
+        {CALL sag.sp_actualizarHato(
+            #{idHato, jdbcType=VARCHAR,mode=IN},
+            #{arete, jdbcType=VARCHAR,mode=IN},
+            #{idRaza, jdbcType=INTEGER,mode=IN},
+            #{idLote, jdbcType=INTEGER,mode=IN},
+            #{idRancho, jdbcType=INTEGER,mode=IN},
+            #{sexo, jdbcType=VARCHAR,mode=IN},
+            #{idEstatus, jdbcType=INTEGER,mode=IN},
+            #{descripcionHato, jdbcType=VARCHAR,mode=IN},
+            #{idUsuarioModificador, jdbcType=INTEGER,mode=IN},
+            #{fechaModificacion, jdbcType=VARCHAR,mode=IN})}
+    </update>
+    
+    <update id="actualizarEstatusHato" parameterType="map" statementType="CALLABLE">
+        {CALL sag.sp_actualizarEstatusHato(
+            #{idHato, jdbcType=INTEGER,mode=IN},
+            #{idEstatus, jdbcType=INTEGER,mode=IN},
+            #{idUsuarioModificador, jdbcType=INTEGER,mode=IN},
+            #{fechaModificacion, jdbcType=VARCHAR,mode=IN})}
+    </update>
+    
+    <update id="eliminarHato" parameterType="map" statementType="CALLABLE">
+        {CALL sag.sp_eliminarHato(
+        #{idHato, jdbcType=INTEGER,mode=IN},
+        #{fechaBaja, jdbcType=VARCHAR,mode=IN},
+        #{motivoBaja, jdbcType=VARCHAR,mode=IN})}
+    </update>
+    
+</mapper>

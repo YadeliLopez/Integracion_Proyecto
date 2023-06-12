@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="Traspaso">
+    <select id="getAllTraspasos" resultType="modelo.pojos.Traspaso" statementType="CALLABLE">
+        {CALL sag.sp_getAllTraspasos()}
+    </select>
+    
+    <insert id="registrarTraspaso" parameterType="map" statementType="CALLABLE">
+        {CALL sag.sp_registrarTraspaso(
+            #{idLoteAnterior, jdbcType=INTEGER,mode=IN},
+            #{idLoteDestino, jdbcType=INTEGER,mode=IN},
+            #{motivoTraspaso, jdbcType=VARCHAR,mode=IN},
+            #{idRancho, jdbcType=INTEGER,mode=IN},
+            #{idEstatus, jdbcType=INTEGER,mode=IN},
+            #{idUsuarioCreador, jdbcType=INTEGER,mode=IN},
+            #{fechaCreacion, jdbcType=VARCHAR,mode=IN})}
+    </insert>
+    
+    <insert id="actualizarTraspaso" parameterType="map" statementType="CALLABLE">
+        {CALL sag.sp_actualizarTraspaso(
+            #{idTraspaso, jdbcType=INTEGER,mode=IN},
+            #{idLoteAnterior, jdbcType=INTEGER,mode=IN},
+            #{idLoteDestino, jdbcType=INTEGER,mode=IN},
+            #{motivoTraspaso, jdbcType=VARCHAR,mode=IN},
+            #{idRancho, jdbcType=INTEGER,mode=IN},
+            #{idEstatus, jdbcType=INTEGER,mode=IN},
+            #{idUsuarioModificador, jdbcType=INTEGER,mode=IN},
+            #{fechaModificacion, jdbcType=VARCHAR,mode=IN})}
+    </insert>
+    
+    <update id="actualizarEstatusTraspaso" parameterType="map" statementType="CALLABLE">
+        {CALL sag.sp_actualizarEstatusTraspaso(
+            #{idTraspaso, jdbcType=INTEGER,mode=IN},
+            #{idEstatus, jdbcType=INTEGER,mode=IN},
+            #{idUsuarioModificador, jdbcType=INTEGER,mode=IN},
+            #{fechaModificacion, jdbcType=VARCHAR,mode=IN})}
+    </update>
+    
+    <update id="eliminarTraspaso" parameterType="map" statementType="CALLABLE">
+        {CALL sag.sp_eliminarTraspaso(
+        #{idTraspaso, jdbcType=INTEGER,mode=IN},
+        #{idUsuarioModificador, jdbcType=INTEGER,mode=IN},
+        #{fechaCancelacion, jdbcType=VARCHAR,mode=IN},
+        #{motivoCancelacion, jdbcType=VARCHAR,mode=IN})}
+    </update>
+    
+</mapper>

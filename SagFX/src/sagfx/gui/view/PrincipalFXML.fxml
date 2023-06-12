@@ -22,6 +22,11 @@
                   <MenuItem fx:id="mi_ranchos" mnemonicParsing="false" onAction="#abrirRanchos" text="Ranchos" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="Salir">
+              <items>
+                <MenuItem fx:id="mi_cerrar" mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar Sesión" />
+              </items>
+            </Menu>
         </menus>
       </MenuBar>
    </top>

@@ -87,6 +87,41 @@ public class MovimientoWS {
     }
     
     @POST
+    @Path("actualizarMovimiento")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Respuesta actualizarMovimiento(
+            @FormParam("idMovimiento") Integer idMovimiento,
+            @FormParam("idTipo") Integer idTipo,
+            @FormParam("idConcepto") Integer idConcepto,
+            @FormParam("cantidad") String cantidad,
+            @FormParam("idEstatus") Integer idEstatus,
+            @FormParam("descripcion") String descripcion){
+        Respuesta res = new Respuesta();
+        SqlSession conn = MyBatisUtil.getSession();
+        try{
+            HashMap<String, Object> param = new HashMap<String, Object>();
+            param.put("idMovimiento", idMovimiento);
+            param.put("idTipo", idTipo);
+            param.put("idConcepto", idConcepto);
+            param.put("cantidad", cantidad);
+            param.put("idEstatus", idEstatus);
+            param.put("descripcion", descripcion);
+            
+            conn.insert("Movimiento.actualizarMovimiento", param);
+            conn.commit();
+            res.setError(false);
+            res.setMensaje("Movimiento actualizado correctamente...");
+        }catch(Exception ex){
+            ex.printStackTrace();
+            res.setError(true);
+            res.setMensaje("No se puede actualizar el movimiento");
+        }finally{
+            conn.close();
+        }
+        return res;
+    }
+    
+    @POST
     @Path("actualizarEstatusMovi")
     @Produces(MediaType.APPLICATION_JSON)
     public Respuesta actualizarEstatusRancho(
@@ -142,5 +177,23 @@ public class MovimientoWS {
             conn.close();
         }
         return res;
+    }
+    
+    @POST
+    @Path("buscarMovimiento")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Movimiento> buscarMovimiento(
+            @FormParam("filtro") String filtro){
+        List<Movimiento> list = new ArrayList<Movimiento>();
+        SqlSession conn = null;
+        try{
+            conn = MyBatisUtil.getSession();
+            list = conn.selectList("Movimiento.buscarMovimiento", filtro);
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            conn.close();
+        }
+        return list;
     }
 }

@@ -67,10 +67,7 @@ public class UsuariosFXMLController implements Initializable {
     private TableColumn<Usuario, String> tcl_estatus;
     @FXML
     private TableColumn<Usuario, String> tcl_rancho;
-    private TableColumn<Usuario, String> tcl_usuarioAlta;
-    private TableColumn<Usuario, String> tcl_fechaAlta;
-    private TableColumn<Usuario, String> tcl_usuarioEditor;
-    private TableColumn<Usuario, String> tcl_fechaEdicion;
+   
     @FXML
     private Button btn_desactivarUsuario;
     @FXML
@@ -82,13 +79,13 @@ public class UsuariosFXMLController implements Initializable {
     
     private HashMap<String, Object> context;
     @FXML
-    private TableColumn<?, ?> tcl_usuarioCreador;
+    private TableColumn<Usuario, String> tcl_usuarioCreador;
     @FXML
-    private TableColumn<?, ?> tcl_fechaCreacion;
+    private TableColumn<Usuario, String> tcl_fechaCreacion;
     @FXML
-    private TableColumn<?, ?> tcl_usuarioModi;
+    private TableColumn<Usuario, String> tcl_usuarioModi;
     @FXML
-    private TableColumn<?, ?> tcl_fechaModi;
+    private TableColumn<Usuario, String> tcl_fechaModi;
     /**
      * Initializes the controller class.
      */
@@ -160,7 +157,7 @@ public class UsuariosFXMLController implements Initializable {
         this.usuario = null;
 
         HashMap<String, Object> params = new LinkedHashMap<>();
-        params.put("busqueda", this.txt_busqueda.getText());
+        params.put("filtro", this.txt_busqueda.getText());
 
         respuesta = Requests.post("/usuario/buscarUsuario", params);
         Gson gson = new Gson();
@@ -179,10 +176,10 @@ public class UsuariosFXMLController implements Initializable {
             tcl_rol.setCellValueFactory(new PropertyValueFactory<>("rol"));
             tcl_estatus.setCellValueFactory(new PropertyValueFactory<>("estatus"));
             tcl_rancho.setCellValueFactory(new PropertyValueFactory<>("rancho"));
-            tcl_usuarioAlta.setCellValueFactory(new PropertyValueFactory<>("usuarioAlta"));
-            tcl_fechaAlta.setCellValueFactory(new PropertyValueFactory<>("fechaAlta"));
-            tcl_usuarioEditor.setCellValueFactory(new PropertyValueFactory<>("usuarioEditor"));
-            tcl_fechaEdicion.setCellValueFactory(new PropertyValueFactory<>("fechaEdicion"));
+            tcl_usuarioCreador.setCellValueFactory(new PropertyValueFactory<>("usuarioCreador"));
+            tcl_fechaCreacion.setCellValueFactory(new PropertyValueFactory<>("fechaCreacion"));
+            tcl_usuarioModi.setCellValueFactory(new PropertyValueFactory<>("usuarioModificador"));
+            tcl_fechaModi.setCellValueFactory(new PropertyValueFactory<>("fechaModificacion"));
 
             listUsuario.forEach(e -> {
                 tbl_usuario.getItems().add(e);
@@ -202,7 +199,7 @@ public class UsuariosFXMLController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/sagfx/gui/view/FormUsuarioFXML.fxml"));
             Parent formUsuario = loader.load();
             FormUsuarioFXMLController ctrl = loader.getController();
-            ctrl.setData(this.usuario,true, context);
+            ctrl.setData(this.usuario,true, this.context);
             Scene scene = new Scene(formUsuario);
             Stage stageUsuarios = new Stage();
             stageUsuarios.setTitle("Usuarios");

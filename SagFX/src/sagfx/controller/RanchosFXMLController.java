@@ -209,7 +209,7 @@ public class RanchosFXMLController implements Initializable {
         this.rancho = null;
 
         HashMap<String, Object> params = new LinkedHashMap<>();
-        params.put("busqueda", this.txt_busqueda.getText());
+        params.put("filtro", this.txt_busqueda.getText());
 
         respuesta = Requests.post("/rancho/buscarRancho", params);
         Gson gson = new Gson();
@@ -226,10 +226,10 @@ public class RanchosFXMLController implements Initializable {
             tcl_direccion.setCellValueFactory(new PropertyValueFactory<>("direccion"));
             tcl_encargado.setCellValueFactory(new PropertyValueFactory<>("encargado"));
             tcl_estatus.setCellValueFactory(new PropertyValueFactory<>("estatus"));
-            tcl_usuarioAlta.setCellValueFactory(new PropertyValueFactory<>("usuarioAlta"));
-            tcl_fechaAlta.setCellValueFactory(new PropertyValueFactory<>("fechaAlta"));
-            tcl_usuarioEditor.setCellValueFactory(new PropertyValueFactory<>("usuarioEditor"));
-            tcl_fechaEdicion.setCellValueFactory(new PropertyValueFactory<>("fechaEdicion"));
+            tcl_usuarioCreador.setCellValueFactory(new PropertyValueFactory<>("usuarioCreador"));
+            tcl_fechaCreacion.setCellValueFactory(new PropertyValueFactory<>("fechaCreacion"));
+            tcl_usuarioModi.setCellValueFactory(new PropertyValueFactory<>("usuarioModificador"));
+            tcl_fechaModi.setCellValueFactory(new PropertyValueFactory<>("fechaModificacion"));
 
             listRancho.forEach(e -> {
                 tbl_ranchos.getItems().add(e);

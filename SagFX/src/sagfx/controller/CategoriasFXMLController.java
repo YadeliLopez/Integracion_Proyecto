@@ -113,7 +113,7 @@ public class CategoriasFXMLController implements Initializable {
         this.catalogo = null;
 
         HashMap<String, Object> params = new LinkedHashMap<>();
-        params.put("busqueda", this.txt_busqueda.getText());
+        params.put("filtro", this.txt_busqueda.getText());
 
         respuesta = Requests.post("/categoria/buscarCategorias", params);
         Gson gson = new Gson();

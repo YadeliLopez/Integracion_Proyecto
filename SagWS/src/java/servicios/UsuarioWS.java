@@ -17,7 +17,6 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PUT;
 import javax.ws.rs.core.MediaType;
 import modelo.mybatis.MyBatisUtil;
 import modelo.pojos.Rancho;
@@ -160,7 +159,7 @@ public class UsuarioWS {
         return res;
     }
     
-    @PUT
+    @POST
     @Path("actualizarEstatusUsuario")
     @Produces(MediaType.APPLICATION_JSON)
     public Respuesta actualizarEstatus(
@@ -192,12 +191,12 @@ public class UsuarioWS {
     @Path("buscarUsuario")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Usuario> buscarUsuario(
-            @FormParam("busqueda") String busqueda){
+            @FormParam("filtro") String filtro){
         List<Usuario> list = new ArrayList<Usuario>();
         SqlSession conn = null;
         try{
             conn = MyBatisUtil.getSession();
-            list = conn.selectList("Usuario.buscarUsuario", busqueda);
+            list = conn.selectList("Usuario.buscarUsuario", filtro);
         }catch(Exception e){
             e.printStackTrace();
         }finally{
