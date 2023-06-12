@@ -16,10 +16,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
+import sagfx.utils.Window;
 
 /**
  * FXML Controller class
@@ -40,6 +44,8 @@ public class PrincipalFXMLController implements Initializable {
     private MenuItem mi_ranchos;
     
     private HashMap<String, Object> context;
+    @FXML
+    private MenuItem mi_cerrar;
 
     /**
      * Initializes the controller class.
@@ -93,6 +99,8 @@ public class PrincipalFXMLController implements Initializable {
             
             //Se obtiene el nodo padre que contiene los nodos secuendarios de la interfaz fxml
             Parent principal = loader.load();
+            UsuariosFXMLController ctrl = loader.getController();
+            ctrl.setData(this.context);
             pnl_principal.setCenter(principal);
         }catch(IOException ex){
             Logger.getLogger(PrincipalFXMLController.class.getName()).log(Level.SEVERE, null, ex);
@@ -113,6 +121,22 @@ public class PrincipalFXMLController implements Initializable {
         }catch(IOException ex){
             Logger.getLogger(PrincipalFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void cerrarSesion(ActionEvent event) throws IOException {
+        Node source = (Node) this.pnl_principal;
+        Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
+        
+        Parent login = FXMLLoader.load(getClass().getResource("/sagfx/gui/view/LoginFXML.fxml"));
+        
+        //Cuando ejecute la aplicacion tomará la mac para saber quien ingreso al sistema
+        
+        Scene scene = new Scene(login);
+        
+        stage.setScene(scene);
+        stage.show();
     }
     
 }

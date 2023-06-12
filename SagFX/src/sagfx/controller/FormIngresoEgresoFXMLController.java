@@ -22,6 +22,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import org.json.JSONException;
@@ -56,6 +57,8 @@ public class FormIngresoEgresoFXMLController implements Initializable {
     private Button btn_guardar;
     @FXML
     private Button btn_cancelar;
+    @FXML
+    private CheckBox chb_estatus;
     
     /**
      * Initializes the controller class.
@@ -80,6 +83,13 @@ public class FormIngresoEgresoFXMLController implements Initializable {
         if (!this.isNew) {
             this.txt_cantidad.setText(movimiento.getCantidad());
             this.txt_descripcion.setText(movimiento.getDescripcion());
+            if ("Activo".equals(movimiento.getEstatus())) {
+                this.chb_estatus.setText("Activo");
+                this.chb_estatus.setSelected(true);
+            } else {
+                this.chb_estatus.setText("Cancelado");
+                this.chb_estatus.setSelected(false);
+            }
         }
     }
     
@@ -109,7 +119,6 @@ public class FormIngresoEgresoFXMLController implements Initializable {
         this.cmb_concepto.setItems(comboListaIngresos);
     }
     
-    //Hacer servicioooooooooo
     public void cargarEgreso(){
         String respuesta = "";
         respuesta = Requests.get("/catalogo/getEgresos/");
@@ -139,9 +148,12 @@ public class FormIngresoEgresoFXMLController implements Initializable {
                 HashMap<String, Object> params = new LinkedHashMap<>();
                 params.put("cantidad", this.txt_cantidad.getText());
                 params.put("descripcion", this.txt_descripcion.getText());
-                params.put("idUsuarioCreador", usuario.getIdUsuario());
-                params.put("fechaCreacion", LocalDate.now());
-                params.put("idEstatus", 101);
+                
+                if (this.chb_estatus.isSelected()) {
+                    params.put("idEstatus", 101);
+                } else {
+                    params.put("idEstatus", 102);
+                }
                 if (this.cmb_tipo.getValue().equals("Ingreso")) {
                     params.put("idTipo", 4);
                 } else {
@@ -156,7 +168,15 @@ public class FormIngresoEgresoFXMLController implements Initializable {
                     }
                 }
                 params.put("idConcepto", idConcepto);
-                data = Requests.post("/movimiento/registrarMovimiento/", params);
+                
+                if (this.isNew) {
+                    params.put("idUsuarioCreador", usuario.getIdUsuario());
+                    params.put("fechaCreacion", LocalDate.now());
+                    data = Requests.post("/movimiento/registrarMovimiento/", params);
+                } else {
+                    params.put("idMovimiento", this.movimiento.getIdMovimiento());
+                    data = Requests.post("/movimiento/actualizarMovimiento/", params);
+                }
                
                 JSONObject dataJson = new JSONObject(data);
                 

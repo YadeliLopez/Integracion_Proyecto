@@ -8,6 +8,7 @@ package sagfx.controller;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -54,11 +55,11 @@ public class FormUsuarioFXMLController implements Initializable {
     @FXML
     private PasswordField txt_contrasena;
     @FXML
-    private ComboBox<Catalogo> cmb_rol;
+    private ComboBox cmb_rol;
     @FXML
     private CheckBox chb_estatus;
     @FXML
-    private ComboBox<Rancho> cmb_rancho;
+    private ComboBox cmb_rancho;
     @FXML
     private Button btn_guardar;
     @FXML
@@ -67,14 +68,15 @@ public class FormUsuarioFXMLController implements Initializable {
     Usuario usuario = null;
     Boolean isNew = null;
     private HashMap<String, Object> context;
+    List<Catalogo> listComboRol;
+    List<Rancho> listComboRancho;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        cargarRolesUsuario();
-        cargarRanchos();
+        
     }  
     
     //Para pasar datos en cada controlador
@@ -83,6 +85,8 @@ public class FormUsuarioFXMLController implements Initializable {
         this.isNew = isNew;
         this.context=context;
         this.cargarUsuarios();
+        this.cargarRolesUsuario();
+        this.cargarRanchos();
     }
     
     public void cargarUsuarios() {
@@ -111,6 +115,24 @@ public class FormUsuarioFXMLController implements Initializable {
         }
     }
     
+    public void cargarRolesUsuario(){
+        String respuesta = "";
+        respuesta = Requests.get("/catalogo/getAllRolesUsuario/");
+        Gson gson = new Gson();
+        TypeToken<List<Catalogo>> token = new TypeToken<List<Catalogo>>(){
+        };
+        this.listComboRol  = gson.fromJson(respuesta, token.getType());
+        
+        ObservableList<String> comboListaRolesU = FXCollections.observableArrayList();
+        
+        
+        listComboRol.forEach(e ->{
+            comboListaRolesU.add(e.getNombre());
+        });
+        
+        this.cmb_rol.setItems(comboListaRolesU);
+    }
+    
     private Boolean validarDatos() {
         Boolean valido = true;
         if(this.txt_nombre.getText().isEmpty() || this.txt_apellidoP.getText().isEmpty() || this.txt_apellidoM.getText().isEmpty()){
@@ -131,17 +153,40 @@ public class FormUsuarioFXMLController implements Initializable {
                 params.put("nombre", this.txt_nombre.getText());
                 params.put("apellidoPaterno", this.txt_apellidoP.getText());
                 params.put("apellidoMaterno", this.txt_apellidoM.getText());
+                params.put("celular", this.txt_celular.getText());
+                params.put("usuario", this.txt_usuario.getText());
+                params.put("contrasena", this.txt_contrasena.getText());
+                
+                int idRolU=0;
+                for(int i=0; i<this.listComboRol.size(); i++){
+                    if(this.listComboRol.get(i).getNombre().equals(this.cmb_rol.getValue().toString())){
+                        idRolU = this.listComboRol.get(i).getIdCatalogo();
+                        
+                    }
+                }
+                params.put("idRol", idRolU);
+                
                 if (this.chb_estatus.isSelected()) {
                     params.put("idEstatus", 101);
                 } else {
                     params.put("idEstatus", 102);
                 }
+                
+                int idRanchU=0;
+                for(int i=0; i<this.listComboRancho.size(); i++){
+                    if(this.listComboRancho.get(i).getNombre().equals(this.cmb_rancho.getValue().toString())){
+                        idRanchU = this.listComboRancho.get(i).getIdRancho();
+                    }
+                }
+                params.put("idRancho", idRanchU);
+                
                 if (this.isNew) {
-                    params.put("idUsuarioAlta", usuario.getIdUsuario());
+                    params.put("idUsuarioCreador", usuario.getIdUsuario());
+                    params.put("fechaCreacion", LocalDate.now());
                     data = Requests.post("/usuario/registrarUsuario/", params);
                 } else {
-                    params.put("idUsuario", usuario.getIdUsuario());
-                    params.put("idUsuarioEditor", usuario.getIdUsuario());
+                    params.put("idUsuarioModificador", usuario.getIdUsuario());
+                    params.put("fechaModificacion", LocalDate.now());
                     data = Requests.post("/usuario/actualizarUsuario/", params);
                 }
                 JSONObject dataJson = new JSONObject(data);
@@ -179,29 +224,22 @@ public class FormUsuarioFXMLController implements Initializable {
         Window.close(event);
     }
     
-    public void cargarRolesUsuario(){
-        String respuesta = "";
-        respuesta = Requests.get("/catalogo/getAllRolesUsuario/");
-        Gson gson = new Gson();
-        TypeToken<List<Catalogo>> token = new TypeToken<List<Catalogo>>(){
-        };
-        List<Catalogo> listRoles = gson.fromJson(respuesta, token.getType());
-        
-        listRoles.forEach(e ->{
-            cmb_rol.getItems().add(e);
-        });
-    }
-    
     public void cargarRanchos(){
         String respuesta = "";
         respuesta = Requests.get("/rancho/getAllRanchos/");
         Gson gson = new Gson();
         TypeToken<List<Rancho>> token = new TypeToken<List<Rancho>>(){
         };
-        List<Rancho> listRanchos = gson.fromJson(respuesta, token.getType());
-        listRanchos.forEach(e ->{
-            cmb_rancho.getItems().add(e);
+        this.listComboRancho  = gson.fromJson(respuesta, token.getType());
+        
+        ObservableList<String> comboListaRanchos = FXCollections.observableArrayList();
+        
+        
+        listComboRancho.forEach(e ->{
+            comboListaRanchos.add(e.getNombre());
         });
+        
+        this.cmb_rancho.setItems(comboListaRanchos);
     }
     
 }

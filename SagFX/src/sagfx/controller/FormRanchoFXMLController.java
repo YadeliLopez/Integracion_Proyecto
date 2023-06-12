@@ -53,9 +53,7 @@ public class FormRanchoFXMLController implements Initializable {
     private Rancho rancho = null;
     Boolean isNew = null;
     private HashMap<String, Object> context;
-    String fechaNow;
-    @FXML
-    private Label lbl_fecha;
+    //String fechaNow;
 
     /**
      * Initializes the controller class.
@@ -78,11 +76,11 @@ public class FormRanchoFXMLController implements Initializable {
             this.txt_nombre.setText(rancho.getNombre());
             this.txt_direccion.setText(rancho.getDireccion());
             this.txt_encargado.setText(rancho.getEncargado());
-            if ("S".equals(rancho.getEstatus())) {
+            if ("Activo".equals(rancho.getEstatus())) {
                 this.chb_estatus.setText("Activo");
                 this.chb_estatus.setSelected(true);
             } else {
-                this.chb_estatus.setText("Inaactivo");
+                this.chb_estatus.setText("Inactivo");
                 this.chb_estatus.setSelected(false);
             }
         }
@@ -115,21 +113,13 @@ public class FormRanchoFXMLController implements Initializable {
                     params.put("idEstatus", 102);
                 }
                 if (this.isNew) {
-                    params.put("idUsuarioAlta", usuario.getIdUsuario());
-                    //fechaAlta.setValue(LocalDate.now());
-                    //fechaAlta.setEditable(false);
-                    params.put("fechaAlta", LocalDate.now());
+                    params.put("idUsuarioCreador", usuario.getIdUsuario());
+                    params.put("fechaCreacion", LocalDate.now());
                     data = Requests.post("/rancho/registrarRancho/", params);
                 } else {
                     params.put("idRancho", rancho.getIdRancho());
-                    params.put("idUsuarioEditor", usuario.getIdUsuario());
-                    //fechaAlta.setValue(LocalDate.now());
-                    //fechaAlta.setEditable(false);G
-                    //fechaNow = LocalDate.now().toString();
-                    //System.out.println(fechaNow);
-                    //fecha.setText(fechaNow);
-                    
-                    params.put("fechaEdicion", LocalDate.now());
+                    params.put("idUsuarioModificador", usuario.getIdUsuario());
+                    params.put("fechaModificacion", LocalDate.now());
                     data = Requests.post("/rancho/actualizarRancho/", params);
                 }
                 JSONObject dataJson = new JSONObject(data);

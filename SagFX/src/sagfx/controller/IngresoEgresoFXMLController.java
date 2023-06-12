@@ -23,6 +23,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -137,7 +138,7 @@ public class IngresoEgresoFXMLController implements Initializable {
     @FXML
     private void limpiar(ActionEvent event) {
         this.txt_busqueda.setText("");
-        //this.cargarMovimientos();
+        this.cargarMovimientos();
     }
     
     @FXML
@@ -170,10 +171,72 @@ public class IngresoEgresoFXMLController implements Initializable {
 
     @FXML
     private void editarMov(ActionEvent event) {
+        if(this.movimiento != null){
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/sagfx/gui/view/FormIngresoEgresoFXML.fxml"));
+                Parent formMovi = loader.load();
+                FormIngresoEgresoFXMLController ctrl = loader.getController();
+                ctrl.setData(this.movimiento, false, context);
+                Scene scene = new Scene(formMovi);
+                Stage stageMovi = new Stage();
+                stageMovi.setTitle("Movimientos");
+                stageMovi.setResizable(false);
+                stageMovi.setScene(scene);
+                stageMovi.showAndWait();
+                this.cargarMovimientos();
+                
+                
+            } catch (IOException ex) {
+                Logger.getLogger(CategoriasFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Advertencia");
+            alert.setHeaderText(null);
+            alert.setContentText("Debe seleccionar un movimiento...");
+            alert.showAndWait();
+        }
     }
 
     @FXML
     private void buscarMov(ActionEvent event) {
+        String respuesta = "";
+        this.tbl_ingresoEgreso.getItems().clear();
+        this.movimiento = null;
+
+        HashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("filtro", this.txt_busqueda.getText());
+
+        respuesta = Requests.post("/movimiento/buscarMovimiento", params);
+        Gson gson = new Gson();
+
+        //Definimos u  TypeToken que representa una lista de objetos Categoria
+        TypeToken<List<Movimiento>> token = new TypeToken<List<Movimiento>>() {
+        };
+
+        //Utilizamos el método fromJson() de la clase Gson para convertir el JSON en una lista de objetos
+        List<Movimiento> listMovi = gson.fromJson(respuesta, token.getType());
+
+        if (listMovi.size() > 0) {
+            tcl_tipo.setCellValueFactory(new PropertyValueFactory<>("tipo"));
+            tcl_concepto.setCellValueFactory(new PropertyValueFactory<>("concepto"));
+            tcl_cantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
+            tcl_fechaCreacion.setCellValueFactory(new PropertyValueFactory<>("fechaCreacion"));
+            tcl_usuarioCreador.setCellValueFactory(new PropertyValueFactory<>("usuarioCreador"));
+            tcl_descripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
+            tcl_estatusMov.setCellValueFactory(new PropertyValueFactory<>("estatus"));
+            tcl_fechaCancelacion.setCellValueFactory(new PropertyValueFactory<>("fechaCancelacion"));
+
+            listMovi.forEach(e -> {
+                tbl_ingresoEgreso.getItems().add(e);
+            });
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Advertencia");
+            alert.setHeaderText(null);
+            alert.setContentText("Los datos no coinciden con ningún registro...");
+            alert.showAndWait();
+        }
     }
 
     @FXML

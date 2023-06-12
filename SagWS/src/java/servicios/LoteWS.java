@@ -18,35 +18,32 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 import modelo.mybatis.MyBatisUtil;
-import modelo.pojos.Categoria;
-import modelo.pojos.Rancho;
+import modelo.pojos.Lote;
 import modelo.pojos.Respuesta;
-import modelo.pojos.Usuario;
 import org.apache.ibatis.session.SqlSession;
 
 /**
  *
  * @author Yadelí López
  */
-@Path("rancho")
-public class RanchoWS {
-    
+@Path("lote")
+public class LoteWS {
     @Context
     private UriInfo context;
     
-    public RanchoWS(){
+    public LoteWS(){
         
     }
     
     @GET
-    @Path("getAllRanchos")
+    @Path("getAllLotes")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Rancho>getAllRanchos(){
-        List<Rancho> list = new ArrayList<Rancho>();
+    public List<Lote>getAllHatos(){
+        List<Lote> list = new ArrayList<Lote>();
         SqlSession conn = null;
         try{
             conn = MyBatisUtil.getSession();
-            list = conn.selectList("Rancho.getAllRanchos");
+            list = conn.selectList("Lote.getAllLotes");
         }catch(Exception ex){
             ex.printStackTrace();
         }finally{
@@ -58,34 +55,33 @@ public class RanchoWS {
     }
     
     @POST
-    @Path("registrarRancho")
+    @Path("registrarLote")
     @Produces(MediaType.APPLICATION_JSON)
-    public Respuesta registrarRancho(
+    public Respuesta registrarLote(
             @FormParam("nombre") String nombre,
-            @FormParam("direccion") String direccion,
-            @FormParam("encargado") String encargado,
+            @FormParam("descripcion") String descripcion,
             @FormParam("idEstatus") Integer idEstatus,
-            @FormParam("idUsuarioCreador") Integer idUsuarioCreador,
-            @FormParam("fechaCreacion") String fechaCreacion){
+            @FormParam("idRancho") Integer idRancho,
+            @FormParam("idUsuarioCreador") Integer idUsuarioCreador){
         Respuesta res = new Respuesta();
         SqlSession conn = MyBatisUtil.getSession();
         try{
             HashMap<String, Object> param = new HashMap<String, Object>();
             param.put("nombre", nombre);
-            param.put("direccion", direccion);
-            param.put("encargado", encargado);
+            param.put("descripcion", descripcion);
             param.put("idEstatus", idEstatus);
+            param.put("idRancho", idRancho);
             param.put("idUsuarioCreador", idUsuarioCreador);
-            param.put("fechaCreacion", fechaCreacion);
+            param.put("fechaCreacion", LocalDate.now());
             
-            conn.insert("Rancho.registrarRancho", param);
+            conn.insert("Lote.registrarLote", param);
             conn.commit();
             res.setError(false);
-            res.setMensaje("Rancho registrado correctamente...");
+            res.setMensaje("Lote registrado correctamente...");
         }catch(Exception ex){
             ex.printStackTrace();
             res.setError(true);
-            res.setMensaje("No se puede registrar el rancho");
+            res.setMensaje("No se puede registrar el lote");
         }finally{
             conn.close();
         }
@@ -93,90 +89,69 @@ public class RanchoWS {
     }
     
     @POST
-    @Path("actualizarRancho")
+    @Path("actualizarLote")
     @Produces(MediaType.APPLICATION_JSON)
-    public Respuesta actualizarRancho(
-            @FormParam("idRancho") Integer idRancho,
-            @FormParam("nombre") String nombre,
-            @FormParam("direccion") String direccion,
-            @FormParam("encargado") String encargado,
-            @FormParam("idEstatus") Integer idEstatus,
-            @FormParam ("idUsuarioModificador") Integer idUsuarioModificador,
-            @FormParam("fechaModificacion") String fechaModificacion){
+    public Respuesta actualizarLote(
+        @FormParam("idLote") Integer idLote,
+        @FormParam("nombre") String nombre,
+        @FormParam("descripcion") String descripcion,
+        @FormParam("idEstatus") Integer idEstatus,
+        @FormParam("idRancho") Integer idRancho,
+        @FormParam("idUsuarioModificador") Integer idUsuarioModificador){
         Respuesta res = new Respuesta();
         SqlSession conn = MyBatisUtil.getSession();
         try{
             HashMap<String, Object> param = new HashMap<String, Object>();
-            param.put("idRancho", idRancho);
+            param.put("idLote", idLote);
             param.put("nombre", nombre);
-            param.put("direccion", direccion);
-            param.put("encargado", encargado);
+            param.put("descripcion", descripcion);
             param.put("idEstatus", idEstatus);
+            param.put("idRancho", idRancho);
             param.put("idUsuarioModificador", idUsuarioModificador);
-            param.put("fechaModificacion", fechaModificacion);
+            param.put("fechaModificacion", LocalDate.now());
             
-            conn.update("Rancho.actualizarRancho", param);
+            conn.update("Lote.actualizarLote", param);
             conn.commit();
             res.setError(false);
-            res.setMensaje("Rancho actualizado correctamente...");
+            res.setMensaje("Lote actualizado correctamente...");
         }catch(Exception ex){
             ex.printStackTrace();
             res.setError(true);
-            res.setMensaje("No se puede actualizar el rancho");
+            res.setMensaje("No se puede actualizar el Lote");
         }finally{
             conn.close();
         }
         return res;
-    }
+    }  
     
     @POST
-    @Path("actualizarEstatusRancho")
+    @Path("actualizarEstatusLote")
     @Produces(MediaType.APPLICATION_JSON)
-    public Respuesta actualizarEstatusRancho(
-            @FormParam("idRancho") Integer idRancho,
+    public Respuesta actualizarEstatusLote(
+            @FormParam("idLote") Integer idLote,
             @FormParam("idEstatus") Integer idEstatus,
-            @FormParam ("idUsuarioModificador") Integer idUsuarioModificador,
-            @FormParam("fechaModificacion") String fechaModificacion){
+            @FormParam ("idUsuarioModificador") Integer idUsuarioModificador){
         Respuesta res = new Respuesta();
         SqlSession conn = MyBatisUtil.getSession();
         try{
             HashMap<String, Object> param = new HashMap<String, Object>();
-            param.put("idRancho", idRancho);
+            param.put("idLote", idLote);
             param.put("idEstatus", idEstatus);
             param.put("idUsuarioModificador", idUsuarioModificador);
             param.put("fechaModificacion", LocalDate.now());
             
-            conn.update("Rancho.actualizarEstatusRancho", param);
+            conn.update("Lote.actualizarEstatusLote", param);
             conn.commit();
             
             res.setError(false);
-            res.setMensaje("El estatus del rancho ha sido actualizado");
+            res.setMensaje("El estatus del lote ha sido actualizado");
         }catch(Exception e){
             e.printStackTrace();
             res.setError(true);
-            res.setMensaje("No se pudo actualizar el estatus del rancho...");
+            res.setMensaje("No se pudo actualizar el estatus del lote...");
         }finally{
             conn.close();
         }
         return res;
     }
-    
-    @POST
-    @Path("buscarRancho")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Rancho> buscarRancho(
-            @FormParam("filtro") String filtro){
-        List<Rancho> list = new ArrayList<Rancho>();
-        SqlSession conn = null;
-        try{
-            conn = MyBatisUtil.getSession();
-            list = conn.selectList("Rancho.buscarRancho", filtro);
-        }catch(Exception e){
-            e.printStackTrace();
-        }finally{
-            conn.close();
-        }
-        return list;
-    }
-    
 }

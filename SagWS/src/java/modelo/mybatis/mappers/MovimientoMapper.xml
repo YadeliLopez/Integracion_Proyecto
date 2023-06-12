@@ -20,6 +20,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{idEstatus, jdbcType=INTEGER,mode=IN})}
     </insert>
     
+    <update id="actualizarMovimiento" parameterType="map" statementType="CALLABLE">
+        {CALL sag.sp_actualizarMovimiento(
+            #{idMovimiento, jdbcType=INTEGER,mode=IN},
+            #{idTipo, jdbcType=INTEGER,mode=IN},
+            #{idConcepto, jdbcType=INTEGER,mode=IN},
+            #{cantidad, jdbcType=VARCHAR,mode=IN},
+            #{descripcion, jdbcType=VARCHAR,mode=IN},
+            #{idEstatus, jdbcType=INTEGER,mode=IN})}
+    </update>
+    
     <update id="actualizarEstatusMovi" parameterType="map" statementType="CALLABLE">
         {CALL sag.sp_actualizarEstatusMovi(
             #{idMovimiento, jdbcType=INTEGER,mode=IN},
@@ -32,5 +42,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{idMovimiento, jdbcType=INTEGER,mode=IN},
             #{fechaCancelacion, jdbcType=VARCHAR,mode=IN})}
     </update>
+    
+    <select id="buscarMovimiento" resultType="modelo.pojos.Movimiento" statementType="CALLABLE" parameterType="String">
+        {CALL sag.sp_buscarMovimiento(
+            #{filtro, jdbcType=VARCHAR,mode=IN})}
+    </select>
     
 </mapper>

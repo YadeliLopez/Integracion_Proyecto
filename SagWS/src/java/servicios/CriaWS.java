@@ -18,35 +18,33 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 import modelo.mybatis.MyBatisUtil;
-import modelo.pojos.Categoria;
-import modelo.pojos.Rancho;
+import modelo.pojos.Cria;
 import modelo.pojos.Respuesta;
-import modelo.pojos.Usuario;
 import org.apache.ibatis.session.SqlSession;
 
 /**
  *
  * @author Yadelí López
  */
-@Path("rancho")
-public class RanchoWS {
+@Path("cria")
+public class CriaWS {
     
     @Context
     private UriInfo context;
     
-    public RanchoWS(){
+    public CriaWS(){
         
     }
     
     @GET
-    @Path("getAllRanchos")
+    @Path("getAllCrias")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Rancho>getAllRanchos(){
-        List<Rancho> list = new ArrayList<Rancho>();
+    public List<Cria>getAllRanchos(){
+        List<Cria> list = new ArrayList<Cria>();
         SqlSession conn = null;
         try{
             conn = MyBatisUtil.getSession();
-            list = conn.selectList("Rancho.getAllRanchos");
+            list = conn.selectList("Cria.getAllCrias");
         }catch(Exception ex){
             ex.printStackTrace();
         }finally{
@@ -58,34 +56,37 @@ public class RanchoWS {
     }
     
     @POST
-    @Path("registrarRancho")
+    @Path("registrarCria")
     @Produces(MediaType.APPLICATION_JSON)
-    public Respuesta registrarRancho(
-            @FormParam("nombre") String nombre,
-            @FormParam("direccion") String direccion,
-            @FormParam("encargado") String encargado,
+    public Respuesta registrarCria(
+            @FormParam("idHatoMadre") Integer idHatoMadre,
+            @FormParam("sexo") String sexo,
+            @FormParam("fechaNacimiento") String fechaNacimiento,
+            @FormParam("idRaza") Integer idRaza,
             @FormParam("idEstatus") Integer idEstatus,
-            @FormParam("idUsuarioCreador") Integer idUsuarioCreador,
-            @FormParam("fechaCreacion") String fechaCreacion){
+            @FormParam("observaciones") String observaciones,
+            @FormParam("idUsuarioCreador") Integer idUsuarioCreador){
         Respuesta res = new Respuesta();
         SqlSession conn = MyBatisUtil.getSession();
         try{
             HashMap<String, Object> param = new HashMap<String, Object>();
-            param.put("nombre", nombre);
-            param.put("direccion", direccion);
-            param.put("encargado", encargado);
+            param.put("idHatoMadre", idHatoMadre);
+            param.put("sexo", sexo);
+            param.put("fechaNacimiento", fechaNacimiento);
+            param.put("idRaza", idRaza);
             param.put("idEstatus", idEstatus);
+            param.put("observaciones", observaciones);
             param.put("idUsuarioCreador", idUsuarioCreador);
-            param.put("fechaCreacion", fechaCreacion);
+            param.put("fechaCreacion", LocalDate.now());
             
-            conn.insert("Rancho.registrarRancho", param);
+            conn.insert("Cria.registrarCria", param);
             conn.commit();
             res.setError(false);
-            res.setMensaje("Rancho registrado correctamente...");
+            res.setMensaje("Cría registrada correctamente...");
         }catch(Exception ex){
             ex.printStackTrace();
             res.setError(true);
-            res.setMensaje("No se puede registrar el rancho");
+            res.setMensaje("No se puede registrar la cría");
         }finally{
             conn.close();
         }
@@ -93,36 +94,37 @@ public class RanchoWS {
     }
     
     @POST
-    @Path("actualizarRancho")
+    @Path("actualizarCria")
     @Produces(MediaType.APPLICATION_JSON)
-    public Respuesta actualizarRancho(
-            @FormParam("idRancho") Integer idRancho,
-            @FormParam("nombre") String nombre,
-            @FormParam("direccion") String direccion,
-            @FormParam("encargado") String encargado,
+    public Respuesta actualizarCria(
+            @FormParam("idCria") Integer idCria,
+            @FormParam("sexo") String sexo,
+            @FormParam("fechaNacimiento") String fechaNacimiento,
+            @FormParam("idRaza") Integer idRaza,
             @FormParam("idEstatus") Integer idEstatus,
-            @FormParam ("idUsuarioModificador") Integer idUsuarioModificador,
-            @FormParam("fechaModificacion") String fechaModificacion){
+            @FormParam("observaciones") String observaciones,
+            @FormParam("idUsuarioModificador") Integer idUsuarioModificador){
         Respuesta res = new Respuesta();
         SqlSession conn = MyBatisUtil.getSession();
         try{
             HashMap<String, Object> param = new HashMap<String, Object>();
-            param.put("idRancho", idRancho);
-            param.put("nombre", nombre);
-            param.put("direccion", direccion);
-            param.put("encargado", encargado);
+            param.put("idCria", idCria);
+            param.put("sexo", sexo);
+            param.put("fechaNacimiento", fechaNacimiento);
+            param.put("idRaza", idRaza);
             param.put("idEstatus", idEstatus);
+            param.put("observaciones", observaciones);
             param.put("idUsuarioModificador", idUsuarioModificador);
-            param.put("fechaModificacion", fechaModificacion);
+            param.put("fechaModificacion", LocalDate.now());
             
-            conn.update("Rancho.actualizarRancho", param);
+            conn.insert("Cria.actualizarCria", param);
             conn.commit();
             res.setError(false);
-            res.setMensaje("Rancho actualizado correctamente...");
+            res.setMensaje("Cría actualizada correctamente...");
         }catch(Exception ex){
             ex.printStackTrace();
             res.setError(true);
-            res.setMensaje("No se puede actualizar el rancho");
+            res.setMensaje("No se puede actualizar la cría");
         }finally{
             conn.close();
         }
@@ -130,31 +132,30 @@ public class RanchoWS {
     }
     
     @POST
-    @Path("actualizarEstatusRancho")
+    @Path("actualizarEstatusCria")
     @Produces(MediaType.APPLICATION_JSON)
-    public Respuesta actualizarEstatusRancho(
-            @FormParam("idRancho") Integer idRancho,
+    public Respuesta actualizarEstatusCria(
+            @FormParam("idCria") Integer idCria,
             @FormParam("idEstatus") Integer idEstatus,
-            @FormParam ("idUsuarioModificador") Integer idUsuarioModificador,
-            @FormParam("fechaModificacion") String fechaModificacion){
+            @FormParam ("idUsuarioModificador") Integer idUsuarioModificador){
         Respuesta res = new Respuesta();
         SqlSession conn = MyBatisUtil.getSession();
         try{
             HashMap<String, Object> param = new HashMap<String, Object>();
-            param.put("idRancho", idRancho);
+            param.put("idCria", idCria);
             param.put("idEstatus", idEstatus);
             param.put("idUsuarioModificador", idUsuarioModificador);
             param.put("fechaModificacion", LocalDate.now());
             
-            conn.update("Rancho.actualizarEstatusRancho", param);
+            conn.update("Cria.actualizarEstatusCria", param);
             conn.commit();
             
             res.setError(false);
-            res.setMensaje("El estatus del rancho ha sido actualizado");
+            res.setMensaje("El estatus de la cría ha sido actualizado");
         }catch(Exception e){
             e.printStackTrace();
             res.setError(true);
-            res.setMensaje("No se pudo actualizar el estatus del rancho...");
+            res.setMensaje("No se pudo actualizar el estatus de la cría...");
         }finally{
             conn.close();
         }
@@ -162,21 +163,31 @@ public class RanchoWS {
     }
     
     @POST
-    @Path("buscarRancho")
+    @Path("eliminarCria")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Rancho> buscarRancho(
-            @FormParam("filtro") String filtro){
-        List<Rancho> list = new ArrayList<Rancho>();
-        SqlSession conn = null;
+    public Respuesta eliminarCria(
+            @FormParam("idCria") Integer idCria){
+        Respuesta res = new Respuesta();
+        SqlSession conn = MyBatisUtil.getSession();
         try{
-            conn = MyBatisUtil.getSession();
-            list = conn.selectList("Rancho.buscarRancho", filtro);
+            HashMap<String, Object> param = new HashMap<String, Object>();
+            param.put("idCria", idCria);
+            param.put("fechaBaja", LocalDate.now());
+            
+            
+            conn.update("Cria.eliminarCria", param);
+            conn.commit();
+            
+            res.setError(false);
+            res.setMensaje("La cría ha sido dado de baja");
         }catch(Exception e){
             e.printStackTrace();
+            res.setError(true);
+            res.setMensaje("No se pudo dar de baja a la cría...");
         }finally{
             conn.close();
         }
-        return list;
+        return res;
     }
     
 }

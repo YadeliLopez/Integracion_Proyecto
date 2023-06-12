@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="Lote">
+    <select id="getAllLotes" resultType="modelo.pojos.Lote" statementType="CALLABLE">
+        {CALL sag.sp_getAllLotes()}
+    </select>
+    
+    <insert id="registrarLote" parameterType="map" statementType="CALLABLE">
+        {CALL sag.sp_registrarLote(
+            #{nombre, jdbcType=VARCHAR,mode=IN},
+            #{descripcion, jdbcType=VARCHAR,mode=IN},
+            #{idEstatus, jdbcType=INTEGER,mode=IN},
+            #{idRancho, jdbcType=INTEGER,mode=IN},
+            #{idUsuarioCreador, jdbcType=INTEGER,mode=IN},
+            #{fechaCreacion, jdbcType=VARCHAR,mode=IN})}
+    </insert>
+    
+     <update id="actualizarLote" parameterType="map" statementType="CALLABLE">
+        {CALL sag.sp_actualizarLote(
+            #{idLote, jdbcType=VARCHAR,mode=IN},
+            #{nombre, jdbcType=VARCHAR,mode=IN},
+            #{descripcion, jdbcType=VARCHAR,mode=IN},
+            #{idEstatus, jdbcType=INTEGER,mode=IN},
+            #{idRancho, jdbcType=INTEGER,mode=IN},
+            #{idUsuarioModificador, jdbcType=INTEGER,mode=IN},
+            #{fechaModificacion, jdbcType=VARCHAR,mode=IN})}
+    </update>
+    
+    <update id="actualizarEstatusLote" parameterType="map" statementType="CALLABLE">
+        {CALL sag.sp_actualizarEstatusLote(
+            #{idLote, jdbcType=INTEGER,mode=IN},
+            #{idEstatus, jdbcType=INTEGER,mode=IN},
+            #{idUsuarioModificador, jdbcType=INTEGER,mode=IN},
+            #{fechaModificacion, jdbcType=VARCHAR,mode=IN})}
+    </update>
+    
+    
+    
+</mapper>

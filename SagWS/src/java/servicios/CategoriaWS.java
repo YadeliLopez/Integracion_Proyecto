@@ -145,12 +145,12 @@ public class CategoriaWS {
     @Path("buscarCategorias")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Categoria> buscarCategorias(
-            @FormParam("busqueda") String busqueda){
+            @FormParam("filtro") String filtro){
         List<Categoria> list = new ArrayList<Categoria>();
         SqlSession conn = null;
         try{
             conn = MyBatisUtil.getSession();
-            list = conn.selectList("Categoria.buscarCategorias", busqueda);
+            list = conn.selectList("Categoria.buscarCategorias", filtro);
         }catch(Exception e){
             e.printStackTrace();
         }finally{

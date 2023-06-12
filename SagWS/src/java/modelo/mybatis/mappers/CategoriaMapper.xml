@@ -33,7 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="buscarCategorias" resultType="modelo.pojos.Categoria" statementType="CALLABLE" parameterType="String">
         {CALL sag.sp_buscarCategoria(
-            #{busqueda, jdbcType=VARCHAR,mode=IN})}
+        #{filtro, jdbcType=VARCHAR,mode=IN})}
     </select>
 
 </mapper>
