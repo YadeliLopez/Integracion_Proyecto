@@ -65,7 +65,7 @@ public class HatoWS {
             @FormParam("idRancho") Integer idRancho,
             @FormParam("sexo") String sexo,
             @FormParam("idEstatus") Integer idEstatus,
-            @FormParam("descripcionHato") String descripcionHato,
+            @FormParam("descripcion") String descripcion,
             @FormParam("idUsuarioCreador") String idUsuarioCreador){
         Respuesta res = new Respuesta();
         SqlSession conn = MyBatisUtil.getSession();
@@ -77,7 +77,7 @@ public class HatoWS {
             param.put("idRancho", idRancho);
             param.put("sexo", sexo);
             param.put("idEstatus", idEstatus);
-            param.put("descripcionHato", descripcionHato);
+            param.put("descripcionHato", descripcion);
             param.put("idUsuarioCreador", idUsuarioCreador);
             param.put("fechaCreacion", LocalDate.now());
             
@@ -106,7 +106,7 @@ public class HatoWS {
         @FormParam("idRancho") Integer idRancho,
         @FormParam ("sexo") String sexo,
         @FormParam("idEstatus") Integer idEstatus,
-        @FormParam("descripcionHato") String descripcionHato,
+        @FormParam("descripcion") String descripcion,
         @FormParam("idUsuarioModificador") Integer idUsuarioModificador){
         Respuesta res = new Respuesta();
         SqlSession conn = MyBatisUtil.getSession();
@@ -119,7 +119,7 @@ public class HatoWS {
             param.put("idRancho", idRancho);
             param.put("sexo", sexo);
             param.put("idEstatus", idEstatus);
-            param.put("descripcionHato", descripcionHato);
+            param.put("descripcionHato", descripcion);
             param.put("idUsuarioModificador", idUsuarioModificador);
             param.put("fechaModificacion", LocalDate.now());
             
@@ -196,6 +196,32 @@ public class HatoWS {
             conn.close();
         }
         return res;
+    }
+    
+    @POST
+    @Path("buscarHato")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Hato> buscarHato(
+            @FormParam("arete") String arete,
+            @FormParam("raza") String raza,
+            @FormParam("lote") String lote,
+            @FormParam("rancho") String rancho){
+        List<Hato> list = new ArrayList<Hato>();
+        SqlSession conn = null;
+        try{
+            conn = MyBatisUtil.getSession();
+            HashMap<String, Object> param = new HashMap<String, Object>();
+            param.put("arete", arete);
+            param.put("raza", raza);
+            param.put("lote", lote);
+            param.put("rancho", rancho);
+            list = conn.selectList("Hato.buscarHato", param);
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            conn.close();
+        }
+        return list;
     }
     
 }

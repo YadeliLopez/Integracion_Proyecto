@@ -13,14 +13,20 @@ public class Hato {
     private int idHato;
     private String arete;
     private int idRaza;
+    private String raza;
     private int idLote;
+    private String lote;
     private int idRancho;
+    private String rancho;
     private String sexo;
     private int idEstatus;
-    private String descripcionHato;
+    private String estatus;
+    private String descripcion;
     private int idUsuarioCreador;
+    private String usuarioCreador;
     private String fechaCreacion;
     private int idUsuarioModificador;
+    private String usuarioModificador;
     private String fechaModificacion;
     private String fechaBaja;
     private String motivoBaja;
@@ -28,18 +34,24 @@ public class Hato {
     public Hato() {
     }
 
-    public Hato(int idHato, String arete, int idRaza, int idLote, int idRancho, String sexo, int idEstatus, String descripcionHato, int idUsuarioCreador, String fechaCreacion, int idUsuarioModificador, String fechaModificacion, String fechaBaja, String motivoBaja) {
+    public Hato(int idHato, String arete, int idRaza, String raza, int idLote, String lote, int idRancho, String rancho, String sexo, int idEstatus, String estatus, String descripcion, int idUsuarioCreador, String usuarioCreador, String fechaCreacion, int idUsuarioModificador, String usuarioModificador, String fechaModificacion, String fechaBaja, String motivoBaja) {
         this.idHato = idHato;
         this.arete = arete;
         this.idRaza = idRaza;
+        this.raza = raza;
         this.idLote = idLote;
+        this.lote = lote;
         this.idRancho = idRancho;
+        this.rancho = rancho;
         this.sexo = sexo;
         this.idEstatus = idEstatus;
-        this.descripcionHato = descripcionHato;
+        this.estatus = estatus;
+        this.descripcion = descripcion;
         this.idUsuarioCreador = idUsuarioCreador;
+        this.usuarioCreador = usuarioCreador;
         this.fechaCreacion = fechaCreacion;
         this.idUsuarioModificador = idUsuarioModificador;
+        this.usuarioModificador = usuarioModificador;
         this.fechaModificacion = fechaModificacion;
         this.fechaBaja = fechaBaja;
         this.motivoBaja = motivoBaja;
@@ -57,12 +69,24 @@ public class Hato {
         return idRaza;
     }
 
+    public String getRaza() {
+        return raza;
+    }
+
     public int getIdLote() {
         return idLote;
     }
 
+    public String getLote() {
+        return lote;
+    }
+
     public int getIdRancho() {
         return idRancho;
+    }
+
+    public String getRancho() {
+        return rancho;
     }
 
     public String getSexo() {
@@ -73,12 +97,20 @@ public class Hato {
         return idEstatus;
     }
 
-    public String getDescripcionHato() {
-        return descripcionHato;
+    public String getEstatus() {
+        return estatus;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
     }
 
     public int getIdUsuarioCreador() {
         return idUsuarioCreador;
+    }
+
+    public String getUsuarioCreador() {
+        return usuarioCreador;
     }
 
     public String getFechaCreacion() {
@@ -87,6 +119,10 @@ public class Hato {
 
     public int getIdUsuarioModificador() {
         return idUsuarioModificador;
+    }
+
+    public String getUsuarioModificador() {
+        return usuarioModificador;
     }
 
     public String getFechaModificacion() {
@@ -113,12 +149,24 @@ public class Hato {
         this.idRaza = idRaza;
     }
 
+    public void setRaza(String raza) {
+        this.raza = raza;
+    }
+
     public void setIdLote(int idLote) {
         this.idLote = idLote;
     }
 
+    public void setLote(String lote) {
+        this.lote = lote;
+    }
+
     public void setIdRancho(int idRancho) {
         this.idRancho = idRancho;
+    }
+
+    public void setRancho(String rancho) {
+        this.rancho = rancho;
     }
 
     public void setSexo(String sexo) {
@@ -129,12 +177,20 @@ public class Hato {
         this.idEstatus = idEstatus;
     }
 
-    public void setDescripcionHato(String descripcionHato) {
-        this.descripcionHato = descripcionHato;
+    public void setEstatus(String estatus) {
+        this.estatus = estatus;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public void setIdUsuarioCreador(int idUsuarioCreador) {
         this.idUsuarioCreador = idUsuarioCreador;
+    }
+
+    public void setUsuarioCreador(String usuarioCreador) {
+        this.usuarioCreador = usuarioCreador;
     }
 
     public void setFechaCreacion(String fechaCreacion) {
@@ -143,6 +199,10 @@ public class Hato {
 
     public void setIdUsuarioModificador(int idUsuarioModificador) {
         this.idUsuarioModificador = idUsuarioModificador;
+    }
+
+    public void setUsuarioModificador(String usuarioModificador) {
+        this.usuarioModificador = usuarioModificador;
     }
 
     public void setFechaModificacion(String fechaModificacion) {
